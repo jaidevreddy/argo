@@ -43,6 +43,24 @@ the terrain and the globe are the only imagery.
 - No layout shift: controls that come and go are disabled instead (Landing time button).
 - Top scrim gradient keeps the top bar legible over the bright limb.
 
+## Brand and loading (Phase 7, second pass)
+
+- Logo (src/ui/logoPath.ts, Logo.tsx, favicon): a soft filled "A" whose counter is an arch, with a half Moon rising
+  in it. Original; deliberately not a pure arched-base A (too close to a user reference). currentColor, 16 px up.
+- Boot (src/ui/boot/launchEngine.ts, Loaders.tsx): a small rocket drawn in 0/1 glyphs on a canvas, flying in along a
+  GSAP MotionPath curve over dashed orbits, amber exhaust digits cooling to white, hovering while loading; on ready
+  every digit flies (expo.inOut, random stagger) into the mark, then the crisp mark glows in and "Argo" rises letter by
+  letter. Glow = CSS drop-shadow on the canvas (a per-frame canvas blur froze the main thread). DPR capped at 1.5.
+  Full sequence once per tab session (flag set only when it completes: StrictMode runs effects twice); reloads fade.
+  AreaLoader = the same rocket, small, looping where imagery/terrain loads. Reduced motion: still frame, plain fade.
+- Segmented controls: fully rounded, with a sliding pill (340 ms, cubic-bezier(0.3, 0.9, 0.25, 1)).
+- Date and time: custom UTC picker (src/ui/DateTimePicker.tsx): Monday-first month grid, round day cells, month slide
+  animation, month/year view (jump to 1969), HH:MM field with arrow-key stepping, Now / Done, amber dot on the
+  site's landing date, Esc and outside-click close. Replaces the native datetime-local.
+- Fields: one soft ring around the whole box on focus; the inner input draws none (was a double outline).
+- Verdict panel fills its column; new "Coming up" list (next 4 rises/sets, UTC, click to jump); controls pinned bottom.
+- Compare: labelled Remove per column, Clear all, "Replace oldest" when the list is full.
+
 ## Globe poles (fix before Phase 7)
 
 The equirectangular maps pinched at the poles (radial streaks). MoonGlobe now blends polar stereographic caps

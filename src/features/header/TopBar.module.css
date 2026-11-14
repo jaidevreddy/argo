@@ -8,6 +8,10 @@
 }
 
 .mark {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
   font-size: var(--fs-17);
   font-weight: 650;
   letter-spacing: -0.02em;

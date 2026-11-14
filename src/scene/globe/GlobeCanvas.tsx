@@ -7,16 +7,13 @@ import { Lighting } from './Lighting'
 import { MoonGlobe } from './MoonGlobe'
 import { MarkerProjector } from './MarkerProjector'
 import { SiteMarkers } from './SiteMarkers'
+import { AreaLoader } from '../../ui/Loaders'
 import s from './GlobeCanvas.module.css'
 
 function LoadingNote() {
   const { active, progress } = useProgress()
   if (!active) return null
-  return (
-    <p className={s.loading} role="status">
-      Loading Moon imagery <span className="num">{Math.round(progress)}%</span>
-    </p>
-  )
+  return <AreaLoader label="Loading Moon imagery" progress={progress} />
 }
 
 export function GlobeCanvas() {

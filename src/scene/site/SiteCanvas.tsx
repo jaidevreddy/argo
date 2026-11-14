@@ -11,6 +11,7 @@ import { Terrain } from './Terrain'
 import { siteOverlay, useSiteView } from './siteView'
 import { useSiteSky } from './useSiteSky'
 import { useSiteTerrain } from './useSiteTerrain'
+import { AreaLoader } from '../../ui/Loaders'
 import s from './SiteCanvas.module.css'
 
 /** 3D site view: the baked DEM tile around the landing site, the true Sun with shadows, Earth at its true size and phase. */
@@ -59,11 +60,12 @@ export function SiteCanvas() {
           {sky && `Earth ${((sky.sky.earth.el * 180) / Math.PI).toFixed(1)}°`}
         </span>
       </div>
-      {!tile && (
-        <p className={s.note} role="status">
-          {error ? `Terrain could not load: ${error}` : 'Loading terrain'}
+      {!tile && error && (
+        <p className={s.note} role="alert">
+          Terrain could not load: {error}
         </p>
       )}
+      {!tile && !error && <AreaLoader label="Loading terrain" />}
     </div>
   )
 }

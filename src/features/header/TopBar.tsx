@@ -2,6 +2,7 @@ import { ExternalLink, ShieldCheck } from 'lucide-react'
 import { useState } from 'react'
 import { fmtLat, fmtLon, useScenario, useTarget, type View } from '../../state/scenarioStore'
 import { Button } from '../../ui/Button'
+import { Logo } from '../../ui/Logo'
 import { Segmented } from '../../ui/Segmented'
 import { ValidationDialog } from '../validation/ValidationDialog'
 import s from './TopBar.module.css'
@@ -16,7 +17,10 @@ export function TopBar() {
   const [validating, setValidating] = useState(false)
   return (
     <header className={s.bar}>
-      <h1 className={s.mark}>Argo</h1>
+      <h1 className={s.mark}>
+        <Logo size={22} />
+        Argo
+      </h1>
       {t && (
         <div className={s.place}>
           <span className={s.name}>{t.name}</span>

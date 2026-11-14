@@ -1,4 +1,4 @@
-import { ArrowUpRight, Check, Plus, X } from 'lucide-react'
+import { ArrowUpRight, Check, Plus, RefreshCw, X } from 'lucide-react'
 import { MISSION_DAYS } from '../../core/metrics/mission'
 import { encodeItem } from '../../state/codec'
 import { MAX_COMPARE, useScenario } from '../../state/scenarioStore'
@@ -21,6 +21,8 @@ export function CompareView() {
   const addCompare = useScenario((x) => x.addCompare)
   const removeCompare = useScenario((x) => x.removeCompare)
   const openCompare = useScenario((x) => x.openCompare)
+  const patch = useScenario((x) => x.patch)
+  const patchCompare = (compare: []) => patch({ compare })
   const panel = useScenario((x) => x.panel)
   const maskDeg = useScenario((x) => x.maskDeg)
   const current = { target, utcMs }
@@ -41,9 +43,17 @@ export function CompareView() {
             First {MISSION_DAYS} days after each touchdown · {panel === 'tracking' ? 'tracking' : 'flat'} panel · {maskDeg}° Earth mask · terrain horizon at each spot
           </p>
         </div>
-        <Button size="sm" onClick={() => addCompare()} disabled={inList || items.length >= MAX_COMPARE} title={inList ? 'Already in the list' : undefined}>
-          <Plus size={14} aria-hidden="true" /> Add current
-        </Button>
+        <span className={s.headActions}>
+          {items.length > 0 && (
+            <Button size="sm" variant="quiet" onClick={() => patchCompare([])}>
+              Clear all
+            </Button>
+          )}
+          <Button size="sm" onClick={() => addCompare()} disabled={inList} title={inList ? 'Already in the list' : items.length >= MAX_COMPARE ? 'The list holds three: this replaces the oldest' : undefined}>
+            {items.length >= MAX_COMPARE ? <RefreshCw size={14} aria-hidden="true" /> : <Plus size={14} aria-hidden="true" />}
+            {inList ? 'Added' : items.length >= MAX_COMPARE ? 'Replace oldest' : 'Add current'}
+          </Button>
+        </span>
       </header>
 
       <div className={s.body}>
@@ -71,7 +81,7 @@ export function CompareView() {
                       <ArrowUpRight size={14} aria-hidden="true" /> Open
                     </Button>
                     <Button size="sm" variant="quiet" onClick={() => removeCompare(i)} aria-label={`Remove ${it.target?.name ?? 'scenario'}`}>
-                      <X size={14} aria-hidden="true" />
+                      <X size={14} aria-hidden="true" /> Remove
                     </Button>
                   </span>
                 </div>

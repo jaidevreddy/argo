@@ -13,6 +13,8 @@ import { DEFAULT_SITE_ID, useScenario, useTarget } from '../state/scenarioStore'
 import { useScenarioCompute } from '../state/useScenarioCompute'
 import { startUrlSync } from '../state/urlSync'
 import { useShortcuts } from './useShortcuts'
+import { useBoot } from './useBoot'
+import { BootLoader } from '../ui/Loaders'
 import s from './App.module.css'
 
 export function App() {
@@ -23,6 +25,7 @@ export function App() {
   const sitesReady = useScenario((st) => st.sitesStatus === 'ready')
   const hasTerrain = !!target?.site?.terrain
   const site3d = view === 'site' && hasTerrain
+  const boot = useBoot(view === 'globe' || view === 'site')
 
   // 3D terrain exists only for the baked polar sites; picking any other place falls back to the globe.
   useEffect(() => {
@@ -81,6 +84,7 @@ export function App() {
           <TimeDock />
         </div>
       </div>
+      {!boot.done && <BootLoader ready={boot.ready} label={boot.label} progress={boot.progress} onDone={boot.onDone} />}
     </div>
   )
 }

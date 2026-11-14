@@ -1,4 +1,5 @@
 import { CheckCircle2, CircleSlash, GitCompareArrows, TriangleAlert } from 'lucide-react'
+import { ComingUp } from './ComingUp'
 import type { ReactNode } from 'react'
 import { useCompute } from '../../state/computeStore'
 import { fmtDuration, useNow } from '../../state/useNow'
@@ -99,6 +100,8 @@ export function VerdictPanel() {
           </dl>
         )}
       </section>
+
+      <ComingUp />
 
       <section className={`${s.section} ${s.controls}`}>
         <Segmented label="Panel type" size="sm" value={panel} onChange={(v) => patch({ panel: v })} options={[{ value: 'tracking', label: 'Tracking' }, { value: 'flat', label: 'Flat' }]} />

@@ -3,13 +3,11 @@ import { useEffect, useState } from 'react'
 import { useScenario, useTarget } from '../../state/scenarioStore'
 import { Button } from '../../ui/Button'
 import { Panel } from '../../ui/Panel'
+import { DateTimePicker } from '../../ui/DateTimePicker'
 import { Segmented } from '../../ui/Segmented'
 import { Timeline } from '../timeline/Timeline'
 import s from './TimeDock.module.css'
 
-/** "YYYY-MM-DDTHH:mm" in UTC for <input type="datetime-local">. */
-const toInput = (ms: number) => new Date(ms).toISOString().slice(0, 16)
-const fromInput = (v: string) => Date.parse(`${v}:00Z`)
 const localFmt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' })
 const H = 3_600_000
 type Speed = '1' | '6' | '24'
@@ -55,20 +53,9 @@ export function TimeDock() {
         <Button variant="quiet" size="sm" onClick={() => shiftDays(-1)} aria-label="One day earlier">
           <ChevronLeft size={16} />
         </Button>
-        <label className={s.when} title={`${localFmt.format(utcMs)} your time`}>
-          <span className="visually-hidden">Date and time, UTC</span>
-          <input
-            type="datetime-local"
-            className={`${s.input} num`}
-            value={toInput(utcMs)}
-            step={60}
-            onChange={(e) => {
-              const t = fromInput(e.target.value)
-              if (Number.isFinite(t)) setTime(t)
-            }}
-          />
-          <span className={s.zone}>UTC</span>
-        </label>
+        <span title={`${localFmt.format(utcMs)} your time`}>
+          <DateTimePicker value={utcMs} onChange={setTime} marks={landing !== null ? [{ ms: landing, label: landingLabel }] : []} />
+        </span>
         <Button variant="quiet" size="sm" onClick={() => shiftDays(1)} aria-label="One day later">
           <ChevronRight size={16} />
         </Button>
