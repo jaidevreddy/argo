@@ -62,21 +62,7 @@
   white-space: nowrap;
 }
 
-.track {
-  display: block;
-  width: 140px;
-  height: 1px;
-  background: var(--surface-3);
-  overflow: hidden;
-}
 
-.track > i {
-  display: block;
-  height: 100%;
-  background: var(--text-1);
-  transform-origin: left;
-  transition: transform 300ms var(--ease-out);
-}
 
 .area {
   position: absolute;

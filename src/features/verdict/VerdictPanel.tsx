@@ -56,11 +56,12 @@ export function VerdictPanel() {
 
   return (
     <Panel className={s.panel} role="region" aria-label="Power and communication verdict">
-      <section className={s.section} aria-live="polite">
-        <div className={`${s.head} ${s.sticky}`}>
-          <h2 className={s.title}>At this moment</h2>
-          {now && <span className={`${s.badge} ${verdict.tone}`}>{verdict.icon}{verdict.text}</span>}
-        </div>
+      {/* a direct child of the scrolling card, so it can stay pinned for the card's whole height */}
+      <div className={`${s.head} ${s.sticky}`}>
+        <h2 className={s.title}>At this moment</h2>
+        {now && <span className={`${s.badge} ${verdict.tone}`} aria-live="polite">{verdict.icon}{verdict.text}</span>}
+      </div>
+      <section className={`${s.section} ${s.nowSection}`} aria-live="polite">
         {!now ? (
           <p className={s.note}>Loading horizon…</p>
         ) : (

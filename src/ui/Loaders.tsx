@@ -78,15 +78,16 @@ export function BootLoader({ ready, label, progress, onDone }: { ready: boolean;
       <div className={s.word} data-word aria-hidden="true">
         <span>Lunar landing site navigator</span>
       </div>
-      <div className={s.status} data-status>
-        <span className={s.label}>
-          {label}
-          {progress !== null && <span className="num"> {Math.round(progress)}%</span>}
-        </span>
-        <span className={s.track} aria-hidden="true">
-          <i style={{ transform: `scaleX(${(progress ?? 0) / 100})` }} />
-        </span>
-      </div>
+      {quick ? (
+        <AreaLoader label={label} />
+      ) : (
+        <div className={s.status} data-status>
+          <span className={s.label}>
+            {label}
+            {progress !== null && <span className="num"> {Math.round(progress)}%</span>}
+          </span>
+        </div>
+      )}
     </div>
   )
 }
