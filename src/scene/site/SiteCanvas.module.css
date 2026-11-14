@@ -1,0 +1,71 @@
+.stage {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  animation: arrive 700ms var(--ease-out) both;
+}
+
+.stage:active {
+  cursor: grabbing;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    animation: none;
+  }
+}
+
+.pins {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Positioned by OverlayProjector via transform; the label sits right of the point. */
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: -8px 0 0 -4px;
+  visibility: hidden;
+  font-size: var(--fs-12);
+  color: var(--text-1);
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.9);
+  will-change: transform;
+}
+
+.siteDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.6), 0 0 0 6px rgb(255 255 255 / 0.18);
+}
+
+/* Bodies already show as discs: the label sits beside them, offset past the disc. */
+.body {
+  margin-left: 14px;
+  color: var(--text-2);
+}
+
+.note {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  color: var(--text-2);
+  font-size: var(--fs-13);
+  white-space: nowrap;
+}

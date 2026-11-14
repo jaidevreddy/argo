@@ -43,6 +43,23 @@ the terrain and the globe are the only imagery.
 - No layout shift: controls that come and go are disabled instead (Landing time button).
 - Top scrim gradient keeps the top bar legible over the bright limb.
 
+## As built (Phase 5, 3D site)
+
+- Own Canvas, swapped in for the globe (one WebGL context at a time). Log depth buffer: 1 m to 300 km in one view.
+- Terrain: MeshStandardMaterial, regolith #8d8a85, roughness 1. One vertex per LOLA sample, true vertical scale.
+  Orbit view fades the tile out radially (80–100% of its half-width) so it reads as a specimen, not a slab.
+- Light: one shadow-casting Sun (4096 map, light-space fit, PCF), dimmed by the far-ridge disc fraction.
+  Earthshine 0.06 × Earth's lit fraction. No ambient fill: shadows are black, as on the Moon.
+- Sky: Sun disc at true size + soft glare sprite; Earth at true size with day texture, clouds, phase from the
+  true Sun, thin blue rim. Both ride with the camera so their direction is exact from any viewpoint.
+- Stand view: far ridges as a silhouette band at 40 km, shaded from the profile's smoothed slope, foot fading
+  to black (nearer terrain hides it in reality).
+- Lander: low-poly, foil body, Sun-tracking panel faces the Sun, dish faces Earth (same pointing the numbers assume).
+- Motion: arrival drop from ~95 km above the site to the orbit pose, 2.4 s power3.inOut; mode flights 1.6–1.8 s;
+  stage fades in 700 ms. All 0 s under reduced motion. Time scrubbing never moves the camera.
+- Labels: DOM pins for the site, Sun and Earth (with elevation), compass needle, all written per frame without
+  React re-renders. "3D site" tab disabled (with reason in its title) for places without baked terrain.
+
 ## Charts (Phase 4, dataviz skill)
 
 - Chart mark colours validated with the dataviz validator on the dark surface: Sun #c4862a, Earth #4a94e6

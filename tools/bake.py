@@ -16,6 +16,7 @@ NEAR_MIN_M = 200.0                          # pad scale: the 40 m grid cannot re
 NEAR_MAX_M, NEAR_STEP_M = 20_000, 40.0      # 40 m grid
 FAR_MAX_M, FAR_STEP_M = 200_000, 240.0      # 240 m grid
 TILE_N, TILE_STEP_M, TILE_UNIT_M = 512, 40.0, 0.25
+FAR_HORIZON_MIN_M = 10_240.0               # beyond the tile's half-width: the 3D view's tile casts the nearer shadows
 TERRAIN_LAT_LIMIT = -80.0                   # 40 m grid coverage
 POLE_EPS = 1e-6                             # rad; avoids the azimuth singularity exactly at the pole
 
@@ -31,10 +32,10 @@ def height_any(primary, fallback, lat, lon):
     return h if primary is fallback else np.where(np.isnan(h), fallback.height(lat, lon), h)
 
 
-def horizon_profile(near, far, lat, lon, h_obs):
+def horizon_profile(near, far, lat, lon, h_obs, min_m=NEAR_MIN_M):
     az = np.radians(np.arange(0, 360, AZ_STEP_DEG))[:, None]
     best = np.full(az.shape[0], -np.pi / 2)
-    for dem, d in ((near, np.arange(NEAR_MIN_M, NEAR_MAX_M, NEAR_STEP_M)),
+    for dem, d in ((near, np.arange(min_m, NEAR_MAX_M, NEAR_STEP_M)),
                    (far, np.arange(NEAR_MAX_M, FAR_MAX_M + 1, FAR_STEP_M))):
         la, lo = destination(lat, lon, az, d[None, :])
         h2 = height_any(dem, far, la, lo)
@@ -73,9 +74,12 @@ def main():
         h_site = float(near.height(lat, lon))
         s["elevationM"] = round(h_site, 1)
         prof = horizon_profile(near, far, lat, lon, h_site + MAST_M)
+        far_prof = horizon_profile(near, far, lat, lon, h_site + MAST_M, FAR_HORIZON_MIN_M)
         json.dump({"id": s["id"], "azStepDeg": AZ_STEP_DEG, "mastM": MAST_M, "minRangeM": NEAR_MIN_M, "maxRangeKm": FAR_MAX_M / 1000,
                    "source": "LOLA LDEM_80S_40M (0-20 km) + LDEM_75S_240M (20-200 km)",
-                   "elDeg": [round(float(v), 3) for v in prof]},
+                   "elDeg": [round(float(v), 3) for v in prof],
+                   "farMinRangeM": FAR_HORIZON_MIN_M,
+                   "farElDeg": [round(float(v), 3) for v in far_prof]},
                   open(f"{OUT}/horizon/{s['id']}.json", "w"), separators=(",", ":"))
         tile, zmin, zmax = terrain_tile(near, far, lat, lon, h_site)
         tile.tofile(f"{OUT}/terrain/{s['id']}.bin")

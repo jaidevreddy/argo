@@ -32,7 +32,21 @@ export function TopBar() {
         </div>
       )}
       <div className={s.actions}>
-        <Segmented<View> label="View" value={view} onChange={(v) => patch({ view: v })} options={[{ value: 'globe', label: 'Globe' }, { value: 'sky', label: 'Sky chart' }]} />
+        <Segmented<View>
+          label="View"
+          value={view}
+          onChange={(v) => patch({ view: v })}
+          options={[
+            { value: 'globe', label: 'Globe' },
+            { value: 'sky', label: 'Sky chart' },
+            {
+              value: 'site',
+              label: '3D site',
+              disabled: !t?.site?.terrain,
+              title: t?.site?.terrain ? 'LOLA terrain around the site, lit by the true Sun' : '3D terrain is baked for the polar sites (LOLA 40 m covers 80–90°S)',
+            },
+          ]}
+        />
         <Button size="sm" onClick={() => setValidating(true)}>
           <ShieldCheck size={14} /> Validation
         </Button>

@@ -6,7 +6,9 @@ import { SkyChart } from '../features/skychart/SkyChart'
 import { TimeDock } from '../features/time/TimeDock'
 import { VerdictPanel } from '../features/verdict/VerdictPanel'
 import { GlobeCanvas } from '../scene/globe/GlobeCanvas'
-import { DEFAULT_SITE_ID, useScenario } from '../state/scenarioStore'
+import { SiteCanvas } from '../scene/site/SiteCanvas'
+import { SiteControls } from '../features/site/SiteControls'
+import { DEFAULT_SITE_ID, useScenario, useTarget } from '../state/scenarioStore'
 import { useScenarioCompute } from '../state/useScenarioCompute'
 import { startUrlSync } from '../state/urlSync'
 import { useShortcuts } from './useShortcuts'
@@ -16,6 +18,15 @@ export function App() {
   useScenarioCompute()
   useShortcuts()
   const view = useScenario((st) => st.view)
+  const target = useTarget()
+  const sitesReady = useScenario((st) => st.sitesStatus === 'ready')
+  const hasTerrain = !!target?.site?.terrain
+  const site3d = view === 'site' && hasTerrain
+
+  // 3D terrain exists only for the baked polar sites; picking any other place falls back to the globe.
+  useEffect(() => {
+    if (view === 'site' && sitesReady && !hasTerrain) useScenario.getState().patch({ view: 'globe' })
+  }, [view, sitesReady, hasTerrain])
 
   useEffect(() => {
     const stop = startUrlSync()
@@ -39,7 +50,7 @@ export function App() {
 
   return (
     <div className={s.app}>
-      <GlobeCanvas />
+      {site3d ? <SiteCanvas /> : <GlobeCanvas />}
       <div className={s.overlay}>
         <div className={s.top}>
           <TopBar />
@@ -50,6 +61,11 @@ export function App() {
         {view === 'sky' && (
           <div className={s.center}>
             <SkyChart />
+          </div>
+        )}
+        {site3d && (
+          <div className={s.center}>
+            <SiteControls />
           </div>
         )}
         <div className={s.right}>

@@ -10,8 +10,9 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 | 2 Terrain + metrics | Done | [phases/phase-2.md](phases/phase-2.md) |
 | 3 Shell + picker | Done | [phases/phase-3.md](phases/phase-3.md) |
 | 4 Planner views | Done | [phases/phase-4.md](phases/phase-4.md) |
-| 5 3D site view | Next | |
-| 6–8 | Not started | |
+| 5 3D site view | Done | [phases/phase-5.md](phases/phase-5.md) |
+| 6 Compare + nudge (cuttable) | Next | |
+| 7–8 | Not started | |
 
 ## Decisions taken
 
@@ -36,12 +37,12 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 - Never use drei <Html> (React 19 root-unmount errors). Markers are a DOM layer positioned by MarkerProjector.
 - Zustand selectors must return stable values; derive objects with useMemo (see useTarget).
 - Epoch ms are NEGATIVE before 1970 (Apollo). Never use -1 / `< 0` as a "no time" sentinel; use null.
+- After editing tools/bake.py, re-run it on the Mac sandbox (`python3 tools/bake.py`, ~5 s); tiles stay byte-identical.
 - Chrome javascript_tool output is blocked if it contains the URL query string; don't return location.search.
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.
 
 ## Next step
 
-Phase 5: 3D site view. Third view tab "Site 3D": LOLA 512² tile (public/data/terrain/<id>.bin, int16 0.25 m,
-row 0 north, col 0 west, tangent-plane heights), Sun directional light on the true topocentric vector with
-shadows, Sun disc + Earth sphere at true az/el/size/phase, far horizon ring from the baked profile, lander,
-orbit + stand-here cameras, GSAP flight globe → site. Exit: shadows agree with the sky chart at 3 times.
+Phase 6 (cut line: skip if Phase 5 isn't done by 2 PM Sunday; it is done Saturday): compare 2–3 scenarios side
+by side, "nudge" (search nearby points / times for better power + link), optional Supabase saved scenarios.
+Then Phase 7 polish (bundle split, a11y table view for the sky chart, mobile, humanizer on copy) and Phase 8 submit.

@@ -1,0 +1,57 @@
+/* Fills the centre column but lets drags through to the canvas; only the bar and caption take input. */
+.root {
+  pointer-events: none !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 0;
+}
+
+.bar {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-1);
+  border-radius: var(--r-md);
+  background: var(--panel-bg);
+  border: 1px solid var(--hairline);
+  backdrop-filter: var(--panel-blur);
+  box-shadow: var(--shadow-panel);
+}
+
+.compass {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  color: var(--text-1);
+}
+
+.needle {
+  display: grid;
+  place-items: center;
+  will-change: transform;
+}
+
+.caption {
+  pointer-events: auto;
+  max-width: 62ch;
+  margin-bottom: var(--s-2);
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-sm);
+  background: rgb(5 5 6 / 0.55);
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.warn {
+  font-weight: 500;
+  color: var(--warn);
+}

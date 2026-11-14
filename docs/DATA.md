@@ -29,7 +29,7 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 | Path | Content |
 |---|---|
 | sites.json | 20 curated sites: id, name, mission, agency, status, region, lat, lon (east +), date (UTC), source URL, terrain flag, elevationM |
-| horizon/<id>.json | 720 horizon elevations (deg) at 0.5° azimuth steps, 200 m–200 km, 2 m mast |
+| horizon/<id>.json | `elDeg`: 720 horizon elevations (deg) at 0.5° azimuth steps, 200 m–200 km, 2 m mast. `farElDeg`: same from 10.24 km out (3D view) |
 | terrain/<id>.bin + .json | 512×512 int16 LE, 0.25 m units, 40 m spacing (20.4 km square), row 0 = north, col 0 = west, height above the site's tangent plane (curvature included) |
 
 Terrain sites (≥ 80°S): south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim, malapert-massif, im-2, im-1.

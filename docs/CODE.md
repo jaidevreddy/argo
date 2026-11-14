@@ -21,6 +21,14 @@ Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functi
     src/app/                    App.tsx (layout, loads sites, starts URL sync), App.module.css
     src/state/                  scenarioStore (target, utcMs, mast, panel, mask; useTarget), urlSync (readUrl/writeUrl)
     src/scene/frame.ts          Moon body-fixed → three (x, z, −y); latLonToThree; bodyDirections(utc)
+    src/data/terrain.ts         loadTerrain (tile .bin + far horizon, cached), parseTile, heightAt (bilinear)
+    src/scene/site/             3D site view. local.ts (az/el → x east, y up, z south; Earth orientation from GAST),
+                                terrainGeometry (1 vertex per LOLA sample), shadowFit (light-space ortho fit),
+                                Terrain (regolith + radial fade), SunLight (shadowed Sun dimmed by far ridges,
+                                earthshine × Earth phase), SkyBodies (Sun disc + Earth shader, ride with camera),
+                                FarRidges (10–200 km silhouette band, stand view), Lander, SiteRig (orbit / stand,
+                                GSAP arrival + mode flights), OverlayProjector (compass + pins), siteView store, SiteCanvas
+    src/features/site/          SiteControls (Orbit / Stand here, Face Sun / Earth, compass, provenance caption)
     src/scene/globe/            GlobeCanvas, MoonGlobe, Lighting (true Sun + earthshine), CameraRig (orbit + GSAP
                                 great-circle flight, view offset right of the panel), SiteMarkers (DOM layer),
                                 MarkerProjector (positions DOM markers each frame), markerRegistry

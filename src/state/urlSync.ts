@@ -23,7 +23,7 @@ export function readUrl(search = window.location.search) {
   const mask = Number(q.get('mask'))
   if (q.has('mask') && mask >= 0 && mask <= 10) out.maskDeg = mask
   const view = q.get('view')
-  if (view === 'globe' || view === 'sky') out.view = view
+  if (view === 'globe' || view === 'sky' || view === 'site') out.view = view
   return out
 }
 

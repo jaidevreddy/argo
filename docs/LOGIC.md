@@ -64,6 +64,33 @@ No opaque score. Any ranking shows its weights and lets the user edit them.
 - Sanity: Sun < 1.65° at the pole all year; Earth below −70° at far-side centre; Earth near zenith at 0,0;
   one sunrise + one sunset per lunar day at the equator, refined to < 0.001°.
 
+## 3D site view (Phase 5)
+
+Frame: three.js x = east, y = up, z = south (north = −z), km, origin at the site on its tangent plane.
+Direction from topocentric az/el: (sin az · cos el, sin el, −cos az · cos el), the same az/el the sky chart uses.
+Terrain: the baked tile as-is (heights above the tangent plane, curvature included), one vertex per sample.
+
+The tile covers ±10.24 km. Terrain beyond it is handled by a second baked profile, `farElDeg` (10.24–200 km):
+
+    Sun light intensity = I₀ · f(el_sun, H_far(az_sun), ρ_sun)     (disc fraction, see Visibility)
+
+Inside the tile the shadow map does the work. At the site, tile shadows ∪ far horizon must equal the full
+horizon. Checked offline by marching the tile per azimuth (200 m–10.24 km) and taking max(tile, far):
+
+| Site | mean abs diff vs full horizon | max |
+|---|---|---|
+| Shackleton rim | 0.010° | 0.20° |
+| Malapert Massif | 0.024° | 0.13° |
+| Connecting Ridge | 0.020° | 0.30° |
+| IM-1 | 0.011° | 0.09° |
+| South pole | 0.015° | 0.25° |
+
+The max is about one Sun radius and comes from resampling at 200–400 m range. shortcut: the far-ridge dimming is
+computed at the site and applied to the whole tile (points 10 km off see a slightly different far horizon).
+
+Earth: orientation from GAST (astronomy-engine SiderealTime) in EQJ, rotated into the site frame; precession
+ignored (0.3°, invisible at 2° apparent size). Phase from the same Sun light; earthshine ∝ (1 − ŝ·ê)/2.
+
 ## Window model (Phase 4)
 
 The worker samples a 32-day window starting 2 days before the cursor's UTC day, 10-minute steps (4609 samples).

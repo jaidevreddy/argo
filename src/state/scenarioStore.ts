@@ -4,7 +4,7 @@ import { DEFAULT_MAST_HEIGHT_M } from '../core/constants'
 import type { PanelType } from '../core/metrics/power'
 import type { SiteRecord } from '../data/sites'
 
-export type View = 'globe' | 'sky'
+export type View = 'globe' | 'sky' | 'site'
 
 export type Target = { kind: 'site'; id: string } | { kind: 'custom'; lat: number; lon: number }
 
