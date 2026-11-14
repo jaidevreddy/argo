@@ -8,6 +8,7 @@ import { VerdictPanel } from '../features/verdict/VerdictPanel'
 import { GlobeCanvas } from '../scene/globe/GlobeCanvas'
 import { SiteCanvas } from '../scene/site/SiteCanvas'
 import { SiteControls } from '../features/site/SiteControls'
+import { CompareView } from '../features/compare/CompareView'
 import { DEFAULT_SITE_ID, useScenario, useTarget } from '../state/scenarioStore'
 import { useScenarioCompute } from '../state/useScenarioCompute'
 import { startUrlSync } from '../state/urlSync'
@@ -66,6 +67,11 @@ export function App() {
         {site3d && (
           <div className={s.center}>
             <SiteControls />
+          </div>
+        )}
+        {view === 'compare' && (
+          <div className={s.center}>
+            <CompareView />
           </div>
         )}
         <div className={s.right}>

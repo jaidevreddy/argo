@@ -1,8 +1,9 @@
-import { CheckCircle2, CircleSlash, TriangleAlert } from 'lucide-react'
+import { CheckCircle2, CircleSlash, GitCompareArrows, TriangleAlert } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useCompute } from '../../state/computeStore'
 import { fmtDuration, useNow } from '../../state/useNow'
 import { useScenario } from '../../state/scenarioStore'
+import { Button } from '../../ui/Button'
 import { Panel } from '../../ui/Panel'
 import { Segmented } from '../../ui/Segmented'
 import { Assumptions } from './Assumptions'
@@ -41,6 +42,7 @@ export function VerdictPanel() {
   const panel = useScenario((st) => st.panel)
   const maskDeg = useScenario((st) => st.maskDeg)
   const patch = useScenario((st) => st.patch)
+  const addCompare = useScenario((st) => st.addCompare)
 
   const power = now ? now.sun.visible > 0 : false
   const link = now ? now.earth.up : false
@@ -107,6 +109,16 @@ export function VerdictPanel() {
           onChange={(v) => patch({ maskDeg: Number(v) })}
           options={[{ value: '0', label: '0° mask' }, { value: '2', label: '2°' }, { value: '5', label: '5°' }]}
         />
+        <Button
+          size="sm"
+          variant="quiet"
+          onClick={() => {
+            addCompare()
+            patch({ view: 'compare' })
+          }}
+        >
+          <GitCompareArrows size={14} aria-hidden="true" /> Compare and nudge
+        </Button>
       </section>
 
       <footer className={s.foot}>

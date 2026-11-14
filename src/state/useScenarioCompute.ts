@@ -31,7 +31,7 @@ export function useScenarioCompute() {
   useEffect(() => {
     if (!target) return
     let alive = true
-    const p = site ? loadHorizon(site, mastM) : Promise.resolve(sphereHorizon(mastM))
+    const p = site ? loadHorizon(site, mastM, target.at) : Promise.resolve(sphereHorizon(mastM))
     p.then((h) => alive && useCompute.setState({ horizon: h, horizonKey }))
       .catch((e) => alive && useCompute.setState({ status: 'error', error: String(e) }))
     return () => {
@@ -52,7 +52,7 @@ export function useScenarioCompute() {
     latestKey = resultKey
     useCompute.setState({ status: 'computing', window: anchor })
     computeScenario({
-      site: { latDeg: target.lat, lonDeg: target.lon, elevationM: site?.elevationM ?? 0, mastM },
+      site: { latDeg: target.lat, lonDeg: target.lon, elevationM: target.elevationM ?? 0, mastM },
       horizon,
       startMs: anchor.start,
       endMs: anchor.end,

@@ -1,4 +1,4 @@
-import { Body, GeoMoon, GeoVector, type AstroTime } from 'astronomy-engine'
+import { Body, GeoMoon, GeoVector, MakeTime, type AstroTime } from 'astronomy-engine'
 import { AU_KM } from '../constants'
 import type { Vec3 } from '../types'
 import { eqjToMoonFixed } from './frames'
@@ -19,4 +19,24 @@ export function bodiesFromMoon(time: AstroTime): { sun: Vec3; earth: Vec3 } {
     sun: mulMV(m, sub(sun, moon)),
     earth: mulMV(m, scale(moon, -1)),
   }
+}
+
+/** Sun and Earth vectors (Moon body-fixed km) sampled on a regular grid, packed xyz. Shared by every nearby site. */
+export interface BodySeries {
+  t0: number
+  step: number
+  n: number
+  sun: Float64Array
+  earth: Float64Array
+}
+
+export function bodySeries(t0: number, step: number, n: number): BodySeries {
+  const sun = new Float64Array(n * 3)
+  const earth = new Float64Array(n * 3)
+  for (let i = 0; i < n; i++) {
+    const b = bodiesFromMoon(MakeTime(new Date(t0 + i * step)))
+    sun.set(b.sun, i * 3)
+    earth.set(b.earth, i * 3)
+  }
+  return { t0, step, n, sun, earth }
 }

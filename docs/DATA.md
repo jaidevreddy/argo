@@ -31,6 +31,7 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 |---|---|
 | sites.json | 20 curated sites: id, name, mission, agency, status, region, lat, lon (east +), date (UTC), source URL, terrain flag, elevationM |
 | horizon/<id>.json | `elDeg`: 720 horizon elevations (deg) at 0.5° azimuth steps, 200 m–200 km, 2 m mast. `farElDeg`: same from 10.24 km out (3D view) |
+| nudge/<id>.json | 16 points (1 and 2 km, N then clockwise): eKm, nKm, lat, lon, elevationM, elDeg[720], farElDeg[720]. Compact copy in sites.json `nudgePoints` |
 | terrain/<id>.bin + .json | 512×512 int16 LE, 0.25 m units, 40 m spacing (20.4 km square), row 0 = north, col 0 = west, height above the site's tangent plane (curvature included) |
 
 All 20 sites have terrain. ≥ 80°S: LOLA 40 m + 240 m (south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim,

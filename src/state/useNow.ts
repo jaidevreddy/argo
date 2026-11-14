@@ -23,7 +23,7 @@ export function useNow() {
 
   return useMemo(() => {
     if (!target || !horizon) return null
-    const sky = skyAt({ latDeg: target.lat, lonDeg: target.lon, elevationM: target.site?.elevationM ?? 0, mastM }, utcMs)
+    const sky = skyAt({ latDeg: target.lat, lonDeg: target.lon, elevationM: target.elevationM ?? 0, mastM }, utcMs)
     const hs = horizonAt(horizon, sky.sun.az)
     const he = horizonAt(horizon, sky.earth.az)
     const sunVisible = discFraction(sky.sun.el, hs, sky.sun.angularRadius)

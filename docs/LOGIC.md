@@ -93,6 +93,28 @@ computed at the site and applied to the whole tile (points 10 km off see a sligh
 Earth: orientation from GAST (astronomy-engine SiderealTime) in EQJ, rotated into the site frame; precession
 ignored (0.3°, invisible at 2° apparent size). Phase from the same Sun light; earthshine ∝ (1 − ŝ·ê)/2.
 
+## Mission metrics, Compare and Nudge (Phase 6)
+
+A landing is judged on its first 30 days after touchdown, 10-min samples:
+
+| Metric | Definition |
+|---|---|
+| Power + Earth link (h) | Σ time with Sun disc fraction > 0 and Earth margin > 0 (headline) |
+| First unbroken window | Length of the power+link span containing touchdown (0 if none) |
+| Sunlight after touchdown | End of the lit span containing touchdown; null = lands in darkness |
+| Sunlit %, Earth in view %, longest dark | As in Phase 2, over the 30 days |
+
+No blended score: each row is one plain quantity and the best column per row is marked (ties marked together).
+Tested against runScenario over the same span (identical to 1e-6).
+
+Nudge candidates: 16 baked points at 1 and 2 km in the 8 compass directions (tools/bake.py nudge_points), each with
+its own full horizon (same method as the site) and a far profile from that point's distance to the tile edge per
+azimuth, so the 3D view of a nudged lander stays consistent. Plus touchdown ±1, 2, 3 days at the current point.
+All 23 cases share one ephemeris pass; each keeps its own exact site frame (parallax, local vertical).
+
+3D for a nudged point: Sun/Earth directions computed from the point, expressed in the listed site's scene frame
+(`sceneDirs`); the point's own north is turned by up to ~10° near the pole and the far-ridge ring is rotated to match.
+
 ## Window model (Phase 4)
 
 The worker samples a 32-day window starting 2 days before the cursor's UTC day, 10-minute steps (4609 samples).

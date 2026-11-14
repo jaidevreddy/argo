@@ -3,7 +3,8 @@
 Usage (from repo root):  python3 tools/bake.py
 Reads   data-raw/ldem_80s_40m.img, data-raw/ldem_75s_240m.img (sites at or below 80°S),
         data-raw/crops/<id>_{near,far} from tools/fetch_dem.py (every other site), tools/sites.src.json
-Writes  public/data/sites.json, public/data/horizon/<id>.json, public/data/terrain/<id>.bin (+ .json)
+Writes  public/data/sites.json, public/data/horizon/<id>.json, public/data/terrain/<id>.bin (+ .json),
+        public/data/nudge/<id>.json (exact horizons at 1 and 2 km in 8 directions)
 Math: docs/LOGIC.md (Horizon).
 """
 import json, math, os, sys
@@ -35,16 +36,54 @@ def height_any(primary, fallback, lat, lon):
 
 
 def horizon_profile(near, far, lat, lon, h_obs, min_m=NEAR_MIN_M):
+    """Max elevation angle per azimuth. min_m: scalar, or one minimum range per azimuth (metres)."""
     az = np.radians(np.arange(0, 360, AZ_STEP_DEG))[:, None]
+    min_az = np.broadcast_to(np.asarray(min_m, float), (az.shape[0],))[:, None]
     best = np.full(az.shape[0], -np.pi / 2)
-    for dem, d in ((near, np.arange(min_m, NEAR_MAX_M, NEAR_STEP_M)),
+    for dem, d in ((near, np.arange(min_az.min(), NEAR_MAX_M, NEAR_STEP_M)),
                    (far, np.arange(NEAR_MAX_M, FAR_MAX_M + 1, FAR_STEP_M))):
         la, lo = destination(lat, lon, az, d[None, :])
         h2 = height_any(dem, far, la, lo)
         th = d[None, :] / R
         eps = np.arctan2((R + h2) * np.cos(th) - (R + h_obs), (R + h2) * np.sin(th))
-        best = np.maximum(best, np.nanmax(np.where(np.isnan(eps), -np.pi / 2, eps), axis=1))
+        eps = np.where(np.isnan(eps) | (d[None, :] < min_az), -np.pi / 2, eps)
+        best = np.maximum(best, eps.max(axis=1))
     return np.degrees(best)
+
+
+TILE_HALF_M = (TILE_N - 1) / 2 * TILE_STEP_M
+
+
+def tile_exit_m(e0, n0):
+    """Per azimuth: distance from (e0, n0) to the tile edge. Beyond it the 3D view needs the far profile."""
+    az = np.radians(np.arange(0, 360, AZ_STEP_DEG))
+    de, dn = np.sin(az), np.cos(az)
+    with np.errstate(divide="ignore"):
+        te = np.where(np.abs(de) > 1e-12, (np.sign(de) * TILE_HALF_M - e0) / de, np.inf)
+        tn = np.where(np.abs(dn) > 1e-12, (np.sign(dn) * TILE_HALF_M - n0) / dn, np.inf)
+    return np.minimum(te, tn)
+
+
+NUDGE_RINGS_M = (1000.0, 2000.0)
+
+
+def nudge_points(near, far, lat, lon):
+    """Exact horizons at 1 and 2 km in the 8 compass directions (the Nudge view's candidates)."""
+    pts = []
+    for ring in NUDGE_RINGS_M:
+        for k in range(8):
+            a = math.radians(45 * k)
+            plat, plon = destination(lat, lon, a, ring)
+            plat, plon = float(plat), float(plon)
+            e0, n0 = ring * math.sin(a), ring * math.cos(a)
+            h = float(near.height(plat, plon))
+            full = horizon_profile(near, far, plat, plon, h + MAST_M)
+            farp = horizon_profile(near, far, plat, plon, h + MAST_M, tile_exit_m(e0, n0))
+            pts.append({"eKm": round(e0 / 1000, 4), "nKm": round(n0 / 1000, 4),
+                        "lat": round(math.degrees(plat), 6), "lon": round((math.degrees(plon) + 180) % 360 - 180, 6),
+                        "elevationM": round(h, 1),
+                        "elDeg": [round(float(v), 2) for v in full], "farElDeg": [round(float(v), 2) for v in farp]})
+    return pts
 
 
 def terrain_tile(near, far, lat, lon, h_site):
@@ -78,7 +117,7 @@ def dems_for(s, polar):
 def main():
     polar = (PolarDEM(RAW, "40m"), PolarDEM(RAW, "240m"))
     sites = json.load(open("tools/sites.src.json"))
-    for sub in ("horizon", "terrain"):
+    for sub in ("horizon", "terrain", "nudge"):
         os.makedirs(f"{OUT}/{sub}", exist_ok=True)
     for s in sites:
         d = dems_for(s, polar)
@@ -105,6 +144,11 @@ def main():
                    "format": "int16 LE, row 0 north, col 0 west, height above site tangent plane",
                    "zMinM": round(zmin, 1), "zMaxM": round(zmax, 1)},
                   open(f"{OUT}/terrain/{s['id']}.json", "w"))
+        pts = nudge_points(near, far, lat, lon)
+        json.dump({"id": s["id"], "azStepDeg": AZ_STEP_DEG, "mastM": MAST_M, "ringsKm": [r / 1000 for r in NUDGE_RINGS_M], "points": pts},
+                  open(f"{OUT}/nudge/{s['id']}.json", "w"), separators=(",", ":"))
+        # compact copy for the app to resolve a nudged target without loading profiles: [eKm, nKm, lat, lon, elevationM]
+        s["nudgePoints"] = [[p["eKm"], p["nKm"], p["lat"], p["lon"], p["elevationM"]] for p in pts]
         print(f"{s['id']:18s} elev {h_site:8.1f} m  horizon max {prof.max():5.2f}° min {prof.min():6.2f}°  tile z {zmin:7.0f}..{zmax:6.0f} m", flush=True)
     json.dump(sites, open(f"{OUT}/sites.json", "w"), indent=1)
     print(f"wrote {len(sites)} sites")

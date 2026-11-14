@@ -1,9 +1,8 @@
 import { Navigation2, Sun, Earth } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { loadTerrain, type TerrainTile } from '../../data/terrain'
 import { useTarget } from '../../state/scenarioStore'
 import { siteOverlay, useSiteView, type CamMode } from '../../scene/site/siteView'
 import { useSiteSky } from '../../scene/site/useSiteSky'
+import { useSiteTerrain } from '../../scene/site/useSiteTerrain'
 import { Button } from '../../ui/Button'
 import { Segmented } from '../../ui/Segmented'
 import s from './SiteControls.module.css'
@@ -14,16 +13,8 @@ export function SiteControls() {
   const setMode = useSiteView((st) => st.setMode)
   const face = useSiteView((st) => st.face)
   const target = useTarget()
-  const [tile, setTile] = useState<TerrainTile | null>(null)
-  const id = target?.site?.terrain ? target.site.id : null
-  useEffect(() => {
-    let alive = true
-    if (id) loadTerrain(id).then((t) => alive && setTile(t), () => {})
-    return () => {
-      alive = false
-    }
-  }, [id])
-  const sky = useSiteSky(tile && tile.id === id ? tile : null)
+  const { tile, far } = useSiteTerrain()
+  const sky = useSiteSky(tile, far)
 
   const hidden = sky ? 1 - sky.sunThroughFar : 0
   const sunElDeg = sky ? (sky.sky.sun.el * 180) / Math.PI : 0

@@ -60,6 +60,17 @@ the terrain and the globe are the only imagery.
 - Labels: DOM pins for the site, Sun and Earth (with elevation), compass needle, all written per frame without
   React re-renders. "3D site" tab disabled (with reason in its title) for places without baked terrain.
 
+## As built (Phase 6, compare + nudge)
+
+- Compare is a centre-panel view like the sky chart (opaque). Table on CSS grid with `display: contents` rows:
+  label column with a one-line hint, one column per landing, headline row larger. "Best" = check icon + label pill
+  (never colour alone). 30-day strips reuse the validated chart marks (Sun #c4862a, Earth #4a94e6, Both white).
+- Empty state teaches the view and offers "Try the three Artemis ridge sites".
+- Nudge: shaded relief (NW light, ×3 relief, lighter = higher, stated on the map) with 17 real <button> spots,
+  each labelled with the signed change in hours (sign + text, not colour only). Best moves list (top 3) with Go /
+  Compare, and a ±3-day strip.
+- Entry points: "Compare N" view tab, "Compare and nudge" in the verdict panel.
+
 ## Charts (Phase 4, dataviz skill)
 
 - Chart mark colours validated with the dataviz validator on the dark surface: Sun #c4862a, Earth #4a94e6

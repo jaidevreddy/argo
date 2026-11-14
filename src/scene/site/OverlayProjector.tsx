@@ -20,11 +20,11 @@ function place(el: HTMLElement | null, world: Vector3 | null, w: number, h: numb
 }
 
 /** Writes compass heading and label positions straight to the DOM each frame. */
-export function OverlayProjector({ sky, siteY, showSite }: { sky: SiteSky; siteY: number; showSite: boolean }) {
+export function OverlayProjector({ sky, site, showSite }: { sky: SiteSky; site: Vector3; showSite: boolean }) {
   useFrame(({ camera, size }) => {
     camera.getWorldDirection(fwd)
     if (siteOverlay.compass) siteOverlay.compass.style.transform = `rotate(${(-headingOf(fwd) * 180) / Math.PI}deg)`
-    place(siteOverlay.pins.site, showSite ? new Vector3(0, siteY, 0) : null, size.width, size.height, camera)
+    place(siteOverlay.pins.site, showSite ? site : null, size.width, size.height, camera)
     place(siteOverlay.pins.sun, camera.position.clone().addScaledVector(sky.sunDir, 300), size.width, size.height, camera)
     place(siteOverlay.pins.earth, camera.position.clone().addScaledVector(sky.earthDir, 300), size.width, size.height, camera)
   })

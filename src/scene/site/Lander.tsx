@@ -10,12 +10,12 @@ const FRAME = { color: '#9a9a9e', metalness: 0.5, roughness: 0.5 }
  * Generic low-poly lander, 2 m mast. The tracking panel faces the Sun and the dish faces Earth,
  * so the 3D view shows the same pointing the power and link numbers assume.
  */
-export function Lander({ groundY, sunDir, earthDir }: { groundY: number; sunDir: Vector3; earthDir: Vector3 }) {
+export function Lander({ at, sunDir, earthDir }: { at: { x: number; y: number; z: number }; sunDir: Vector3; earthDir: Vector3 }) {
   const panelQ = useMemo(() => new Quaternion().setFromUnitVectors(new Vector3(0, 0, 1), sunDir), [sunDir])
   const dishQ = useMemo(() => new Quaternion().setFromUnitVectors(UP, earthDir), [earthDir])
   const legs = [0, 1, 2, 3].map((i) => (i * Math.PI) / 2 + Math.PI / 4)
   return (
-    <group position={[0, groundY, 0]} scale={M}>
+    <group position={[at.x, at.y, at.z]} scale={M}>
       <mesh position={[0, 1.15, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[1.05, 1.15, 0.9, 8]} />
         <meshStandardMaterial {...FOIL} />

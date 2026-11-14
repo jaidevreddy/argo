@@ -1,0 +1,508 @@
+.panel {
+  background: rgb(11 11 13 / 0.97) !important;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  --sun-mark: #c4862a;
+  --earth-mark: #4a94e6;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.title {
+  font-size: var(--fs-15);
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--s-3) var(--s-4) var(--s-4);
+}
+
+/* ---- empty state ---- */
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-2);
+  padding: var(--s-5) var(--s-2);
+}
+
+.emptyTitle {
+  font-size: var(--fs-15);
+  font-weight: 500;
+}
+
+.emptyText {
+  max-width: 58ch;
+  font-size: var(--fs-13);
+  color: var(--text-2);
+}
+
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+/* ---- table (CSS grid; rows use display: contents so cells align across columns) ---- */
+.table {
+  display: grid;
+  column-gap: var(--s-3);
+}
+
+.rowContents {
+  display: contents;
+}
+
+.rowContents > * {
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.corner {
+  border-bottom-color: transparent !important;
+}
+
+.colHead {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.colName {
+  font-size: var(--fs-13);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.colDate {
+  font-size: var(--fs-12);
+  color: var(--text-2);
+}
+
+.colActions {
+  display: flex;
+  gap: 2px;
+  margin-left: calc(-1 * var(--s-3));
+}
+
+.rowHead {
+  display: grid;
+  align-content: center;
+  gap: 1px;
+}
+
+.rowLabel,
+.rowLabelMain {
+  font-size: var(--fs-13);
+}
+
+.rowLabelMain {
+  font-weight: 600;
+}
+
+.rowHint {
+  font-size: var(--fs-11);
+  color: var(--text-3);
+  line-height: 1.35;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  min-width: 0;
+  font-size: var(--fs-13);
+}
+
+.cellMain {
+  font-size: var(--fs-22);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.best {
+  color: var(--text-1);
+}
+
+.bestTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px 1px 5px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  color: var(--ok);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.pending {
+  color: var(--text-3);
+  font-size: var(--fs-12);
+}
+
+.error {
+  margin-top: var(--s-2);
+  color: var(--bad);
+  font-size: var(--fs-12);
+}
+
+/* ---- 30-day strip ---- */
+.strip {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.lane {
+  position: relative;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--surface-1);
+  overflow: hidden;
+}
+
+.lane > i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+}
+
+.laneSun {
+  background: var(--sun-mark);
+}
+
+.laneEarth {
+  background: var(--earth-mark);
+}
+
+.laneBoth {
+  background: rgb(255 255 255 / 0.85);
+}
+
+.ticks {
+  position: absolute;
+  inset: auto 0 0;
+  height: 12px;
+  font-size: 10px;
+  color: var(--text-3);
+}
+
+.ticks > span {
+  position: absolute;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.ticks > span:first-child {
+  translate: 0 0;
+}
+
+.ticks > span:last-child {
+  translate: -100% 0;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  font-size: var(--fs-11);
+  color: var(--text-2);
+}
+
+.legend > i {
+  display: inline-block;
+  width: 10px;
+  height: 6px;
+  border-radius: 2px;
+}
+
+/* ---- nudge ---- */
+.nudge {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.nudgeHead {
+  margin-bottom: var(--s-3);
+}
+
+.nudgeTitle {
+  font-size: var(--fs-15);
+}
+
+.nudgeNote {
+  margin-top: 2px;
+  max-width: 70ch;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+}
+
+.nudgeBody {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: start;
+}
+
+.map {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #111;
+  border: 1px solid var(--hairline);
+}
+
+.relief {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.north {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  translate: -50% 0;
+  font-size: var(--fs-11);
+  font-weight: 600;
+  color: var(--text-2);
+  text-shadow: 0 1px 2px #000;
+}
+
+.scale {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid rgb(255 255 255 / 0.7);
+  font-size: 10px;
+  color: var(--text-1);
+  text-shadow: 0 1px 2px #000;
+}
+
+/* Candidate spots: a 24 px hit target centred on the point, label underneath. */
+.dot {
+  position: absolute;
+  translate: -50% -12px;
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  min-width: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px #000, 0 0 6px #000;
+  cursor: pointer;
+}
+
+.dot > i {
+  width: 10px;
+  height: 10px;
+  margin: 7px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.25);
+  box-shadow: 0 0 0 1.5px rgb(0 0 0 / 0.7);
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.dot:hover > i,
+.dot:focus-visible > i {
+  transform: scale(1.35);
+}
+
+.dot:focus-visible {
+  outline: none;
+}
+
+.dot:focus-visible > i {
+  box-shadow: 0 0 0 2px var(--focus), 0 0 0 4px #000;
+}
+
+.dotUp {
+  color: var(--ok);
+}
+
+.dotUp > i {
+  background: var(--ok);
+}
+
+.dotDown > i {
+  background: rgb(255 255 255 / 0.18);
+}
+
+.dotDown {
+  color: var(--text-3);
+}
+
+.dotSame > i {
+  background: rgb(255 255 255 / 0.5);
+}
+
+.dotCur {
+  color: var(--text-1);
+}
+
+.dotCur > i {
+  background: #fff;
+  box-shadow: 0 0 0 2px #000, 0 0 0 5px rgb(255 255 255 / 0.35);
+}
+
+.dotBest > i {
+  width: 13px;
+  height: 13px;
+  margin: 5.5px;
+  box-shadow: 0 0 0 2px #000, 0 0 0 5px color-mix(in srgb, var(--ok) 40%, transparent);
+}
+
+.moves {
+  display: grid;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.movesTitle {
+  font-size: var(--fs-12);
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.movesTitle:not(:first-child) {
+  margin-top: var(--s-3);
+}
+
+.moveList {
+  display: grid;
+  gap: 2px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.move {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'label delta' 'meta actions';
+  align-items: center;
+  gap: 0 var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+}
+
+.moveLabel {
+  grid-area: label;
+  font-size: var(--fs-13);
+  font-weight: 500;
+}
+
+.moveDelta {
+  grid-area: delta;
+  justify-self: end;
+  font-size: var(--fs-15);
+  font-weight: 600;
+  color: var(--ok);
+}
+
+.moveMeta {
+  grid-area: meta;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+}
+
+.moveActions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: calc(-1 * var(--s-2));
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.day {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  padding: 6px 2px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  color: var(--text-2);
+  font-size: var(--fs-11);
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease-out);
+}
+
+.day:hover {
+  background: var(--surface-2);
+}
+
+.day > strong {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.day > strong.up {
+  color: var(--ok);
+}
+
+.day > strong.down {
+  color: var(--text-3);
+}
+
+@media (max-width: 1180px) {
+  .nudgeBody {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    max-width: 300px;
+  }
+}
+
+.mapKey {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  font-size: 10px;
+  color: var(--text-2);
+  text-shadow: 0 1px 2px #000;
+}

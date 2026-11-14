@@ -2,7 +2,8 @@ import { MakeTime, SiderealTime } from 'astronomy-engine'
 import { Matrix4, Vector3 } from 'three'
 import { eqjToMoonFixed } from '../../core/astro/frames'
 import { siteFrame } from '../../core/astro/topocentric'
-import { dot, mulMV } from '../../core/astro/vec'
+import { bodiesFromMoon } from '../../core/astro/ephemeris'
+import { dot, mulMV, norm, scale, sub } from '../../core/astro/vec'
 import type { Site, Vec3 } from '../../core/types'
 import { DEG } from '../../core/units'
 
@@ -42,3 +43,24 @@ export function earthBasis(site: Site, utcMs: number): Matrix4 {
 
 /** Fraction of Earth's disc lit by the Sun, as seen from the Moon (sun at infinity). */
 export const earthLitFraction = (sunDir: Vector3, earthDir: Vector3) => (1 - sunDir.dot(earthDir)) / 2
+
+/**
+ * Directions to the Sun and Earth as seen from `point`, expressed in the scene frame of `base` (the tile's site).
+ * Lets a nudged lander sit on the same tile with exact parallax. Also returns how far the point's own north is
+ * turned in the scene (large near the pole: 2 km from Shackleton's rim turns north by ~10°).
+ */
+export function sceneDirs(base: Site, point: Site, utcMs: number) {
+  const fb = siteFrame(base)
+  const fp = siteFrame(point)
+  const { sun, earth } = bodiesFromMoon(MakeTime(new Date(utcMs)))
+  const toScene = (target: Vec3) => {
+    const r = sub(target, fp.position)
+    const d = scale(r, 1 / norm(r))
+    return new Vector3(dot(d, fb.east), dot(d, fb.up), -dot(d, fb.north))
+  }
+  return {
+    sunDir: toScene(sun),
+    earthDir: toScene(earth),
+    northRot: Math.atan2(dot(fp.north, fb.east), dot(fp.north, fb.north)),
+  }
+}

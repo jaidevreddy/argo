@@ -56,7 +56,7 @@ export function ValidationDialog({ open, onClose }: { open: boolean; onClose: ()
     if (!target) return
     setLive({ state: 'busy' })
     try {
-      const elevationM = target.site?.elevationM ?? 0
+      const elevationM = target.elevationM ?? 0
       const when = new Date(Math.round(utcMs / 60_000) * 60_000)
       const altKm = (elevationM + mastM) / 1000
       const [jSun, jEarth] = await Promise.all([

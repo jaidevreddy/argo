@@ -28,6 +28,13 @@ Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functi
                                 earthshine × Earth phase), SkyBodies (Sun disc + Earth shader, ride with camera),
                                 FarRidges (10–200 km silhouette band, stand view), Lander, SiteRig (orbit / stand,
                                 GSAP arrival + mode flights), OverlayProjector (compass + pins), siteView store, SiteCanvas
+    src/core/metrics/mission.ts first-30-day metrics (opsH, first window, sunset after touchdown…), runMissions shares
+                                one ephemeris pass (bodySeries in astro/ephemeris.ts) across cases on the same 10-min grid
+    src/data/nudge.ts           baked nudge points (horizon + far profile), nudgeLabel
+    src/state/codec.ts          text forms of targets/compare items for URL and keys ("site.3@ISO")
+    src/features/compare/       CompareView (table + 30-day strips), rows.ts (no blended score), NudgePanel + NudgeMap
+                                (relief + 16 candidate spots + ±3 days), useCompare / useNudge / useMissionRuns (debounced, stale-safe)
+    src/scene/site/useSiteTerrain.ts tile + the lander's point (listed or nudged) + its far profile
     src/features/site/          SiteControls (Orbit / Stand here, Face Sun / Earth, compass, provenance caption)
     src/scene/globe/            GlobeCanvas, MoonGlobe, Lighting (true Sun + earthshine), CameraRig (orbit + GSAP
                                 great-circle flight, view offset right of the panel), SiteMarkers (DOM layer),

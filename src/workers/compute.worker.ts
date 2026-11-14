@@ -1,21 +1,29 @@
 /// <reference lib="webworker" />
+import { runMissions, type MissionCase, type MissionStats } from '../core/metrics/mission'
+import type { PanelType } from '../core/metrics/power'
 import { runScenario, type ScenarioInput, type ScenarioResult } from '../core/metrics/summary'
 
-export interface ComputeRequest {
-  id: number
-  input: ScenarioInput
-}
-export type ComputeResponse = { id: number; ok: true; result: ScenarioResult } | { id: number; ok: false; error: string }
+export type ComputeRequest =
+  | { id: number; kind: 'scenario'; input: ScenarioInput }
+  | { id: number; kind: 'missions'; cases: MissionCase[]; panel: PanelType; maskDeg: number }
+export type ComputeResponse =
+  | { id: number; ok: true; result: ScenarioResult | Record<string, MissionStats> }
+  | { id: number; ok: false; error: string }
 
-// Series sampling + event bisection runs here so scrubbing on the main thread never stalls.
+const post = (msg: ComputeResponse, transfer: Transferable[] = []) => (self as unknown as Worker).postMessage(msg, transfer)
+
+// Series sampling, event bisection and mission sweeps run here so scrubbing on the main thread never stalls.
 self.onmessage = (e: MessageEvent<ComputeRequest>) => {
-  const { id, input } = e.data
+  const req = e.data
   try {
-    const result = runScenario(input)
+    if (req.kind === 'missions') {
+      post({ id: req.id, ok: true, result: runMissions(req.cases, req.panel, req.maskDeg) })
+      return
+    }
+    const result = runScenario(req.input)
     const s = result.series
-    const transfer = [s.t, s.sunAz, s.sunEl, s.earthAz, s.earthEl, s.sunVisible, s.power, s.earthUp].map((a) => a.buffer)
-    ;(self as unknown as Worker).postMessage({ id, ok: true, result } satisfies ComputeResponse, transfer)
+    post({ id: req.id, ok: true, result }, [s.t, s.sunAz, s.sunEl, s.earthAz, s.earthEl, s.sunVisible, s.power, s.earthUp].map((a) => a.buffer))
   } catch (err) {
-    ;(self as unknown as Worker).postMessage({ id, ok: false, error: String(err) } satisfies ComputeResponse)
+    post({ id: req.id, ok: false, error: String(err) })
   }
 }

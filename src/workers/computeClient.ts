@@ -1,9 +1,13 @@
+import type { MissionCase, MissionStats } from '../core/metrics/mission'
+import type { PanelType } from '../core/metrics/power'
 import type { ScenarioInput, ScenarioResult } from '../core/metrics/summary'
 import type { ComputeRequest, ComputeResponse } from './compute.worker'
 
+type Req = ComputeRequest extends infer R ? (R extends { id: number } ? Omit<R, 'id'> : never) : never
+
 let worker: Worker | null = null
 let nextId = 1
-const pending = new Map<number, { resolve: (r: ScenarioResult) => void; reject: (e: Error) => void }>()
+const pending = new Map<number, { resolve: (r: unknown) => void; reject: (e: Error) => void }>()
 
 function getWorker() {
   if (worker) return worker
@@ -18,11 +22,17 @@ function getWorker() {
   return worker
 }
 
-/** Run a scenario off the main thread. Callers drop stale answers by comparing request keys. */
-export function computeScenario(input: ScenarioInput): Promise<ScenarioResult> {
+function send<T>(req: Req): Promise<T> {
   const id = nextId++
-  return new Promise((resolve, reject) => {
-    pending.set(id, { resolve, reject })
-    getWorker().postMessage({ id, input } satisfies ComputeRequest)
+  return new Promise<T>((resolve, reject) => {
+    pending.set(id, { resolve: resolve as (r: unknown) => void, reject })
+    getWorker().postMessage({ ...req, id } as ComputeRequest)
   })
 }
+
+/** Run a scenario off the main thread. Callers drop stale answers by comparing request keys. */
+export const computeScenario = (input: ScenarioInput) => send<ScenarioResult>({ kind: 'scenario', input })
+
+/** First-30-day mission metrics for many landings (Compare, Nudge). */
+export const computeMissions = (cases: MissionCase[], panel: PanelType, maskDeg: number) =>
+  send<Record<string, MissionStats>>({ kind: 'missions', cases, panel, maskDeg })

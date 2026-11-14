@@ -12,6 +12,7 @@ export function TopBar() {
   const t = useTarget()
   const view = useScenario((st) => st.view)
   const patch = useScenario((st) => st.patch)
+  const compareCount = useScenario((st) => st.compare.length)
   const [validating, setValidating] = useState(false)
   return (
     <header className={s.bar}>
@@ -21,7 +22,7 @@ export function TopBar() {
           <span className={s.name}>{t.name}</span>
           <span className={`${s.coords} num`}>
             {fmtLat(t.lat)} {fmtLon(t.lon)}
-            {t.site?.elevationM != null && ` · ${Math.round(t.site.elevationM)} m`}
+            {t.elevationM != null && ` · ${Math.round(t.elevationM)} m`}
           </span>
           {t.site && <span className={s.tag}>{STATUS[t.site.status]}</span>}
           {t.site && (
@@ -39,6 +40,7 @@ export function TopBar() {
           options={[
             { value: 'globe', label: 'Globe' },
             { value: 'sky', label: 'Sky chart' },
+            { value: 'compare', label: compareCount ? `Compare ${compareCount}` : 'Compare' },
             {
               value: 'site',
               label: '3D site',

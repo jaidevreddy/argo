@@ -11,10 +11,13 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 | 3 Shell + picker | Done | [phases/phase-3.md](phases/phase-3.md) |
 | 4 Planner views | Done | [phases/phase-4.md](phases/phase-4.md) |
 | 5 3D site view | Done | [phases/phase-5.md](phases/phase-5.md) |
-| 6 Compare + nudge (cuttable) | Next | |
-| 7–8 | Not started | |
+| 6 Compare + nudge | Done | [phases/phase-6.md](phases/phase-6.md) |
+| 7 Polish | Next | |
+| 8 Submit | Not started | |
 
 ## Decisions taken
+
+- Compare is core to the challenge (compare sites and dates), not a cuttable extra. Supabase save skipped: the URL is the save/share.
 
 - Build happens in this chat (Claude), not Claude Code. User does git, npm, deploys.
 - Plain CSS + CSS Modules, no Tailwind. ESLint, not oxlint.
@@ -44,6 +47,7 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 
 ## Next step
 
-Phase 6 (cut line: skip if Phase 5 isn't done by 2 PM Sunday; it is done Saturday): compare 2–3 scenarios side
-by side, "nudge" (search nearby points / times for better power + link), optional Supabase saved scenarios.
-Then Phase 7 polish (bundle split, a11y table view for the sky chart, mobile, humanizer on copy) and Phase 8 submit.
+Phase 7 polish: rendering pass on the 3D view (lunar reflectance, crisper tone mapping, labelled fine detail),
+impeccable critique → audit → polish, a11y (table view for the sky chart, focus order, contrast), bundle split
+(1.37 MB main chunk), mobile layout, humanizer pass on all copy. Then Phase 8: 30 s video, project page, references,
+AI disclosure, submit by 9 PM Sunday.

@@ -1,5 +1,6 @@
 import type { PanelType } from '../core/metrics/power'
 import { DEFAULT_MAST_HEIGHT_M } from '../core/constants'
+import { decodeItem, decodeTarget, encodeItem, encodeTarget, isoSecond, type CompareItem } from './codec'
 import { useScenario, type Target, type View } from './scenarioStore'
 
 /**
@@ -8,11 +9,12 @@ import { useScenario, type Target, type View } from './scenarioStore'
  */
 export function readUrl(search = window.location.search) {
   const q = new URLSearchParams(search)
-  const out: Partial<{ target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View }> = {}
+  const out: Partial<{ target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View; compare: CompareItem[] }> = {}
   const site = q.get('site')
   const lat = Number(q.get('lat'))
   const lon = Number(q.get('lon'))
-  if (site && /^[a-z0-9-]{1,40}$/.test(site)) out.target = { kind: 'site', id: site }
+  const at = q.get('at')
+  if (site) out.target = decodeTarget(at ? `${site}.${at}` : site) ?? undefined
   else if (q.has('lat') && q.has('lon') && Math.abs(lat) <= 90 && Math.abs(lon) <= 180) out.target = { kind: 'custom', lat, lon }
   const t = Date.parse(q.get('t') ?? '')
   if (Number.isFinite(t)) out.utcMs = t
@@ -23,23 +25,30 @@ export function readUrl(search = window.location.search) {
   const mask = Number(q.get('mask'))
   if (q.has('mask') && mask >= 0 && mask <= 10) out.maskDeg = mask
   const view = q.get('view')
-  if (view === 'globe' || view === 'sky' || view === 'site') out.view = view
+  if (view === 'globe' || view === 'sky' || view === 'site' || view === 'compare') out.view = view
+  const cmp = q.get('cmp')
+  if (cmp) out.compare = cmp.split('~').map(decodeItem).filter((x): x is CompareItem => x !== null).slice(0, 3)
+  if (!out.target) delete out.target
   return out
 }
 
-export function writeUrl(s: { target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View }) {
+export function writeUrl(s: { target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View; compare?: CompareItem[] }) {
   const q = new URLSearchParams()
-  if (s.target.kind === 'site') q.set('site', s.target.id)
-  else {
-    q.set('lat', s.target.lat.toFixed(4))
-    q.set('lon', s.target.lon.toFixed(4))
+  if (s.target.kind === 'site') {
+    q.set('site', s.target.id)
+    if (s.target.at != null) q.set('at', String(s.target.at))
+  } else {
+    const [lat, lon] = encodeTarget(s.target).split(',')
+    q.set('lat', lat)
+    q.set('lon', lon)
   }
-  q.set('t', new Date(Math.round(s.utcMs / 1000) * 1000).toISOString().replace('.000Z', 'Z'))
+  q.set('t', isoSecond(s.utcMs))
   if (s.mastM !== DEFAULT_MAST_HEIGHT_M) q.set('mast', String(s.mastM))
   if (s.panel !== 'tracking') q.set('panel', s.panel)
   if (s.maskDeg !== 0) q.set('mask', String(s.maskDeg))
   if (s.view !== 'globe') q.set('view', s.view)
-  const next = `${window.location.pathname}?${q.toString().replace(/%3A/g, ':')}`
+  if (s.compare?.length) q.set('cmp', s.compare.map(encodeItem).join('~'))
+  const next = `${window.location.pathname}?${q.toString().replace(/%3A/g, ':').replace(/%40/g, '@').replace(/%2C/g, ',').replace(/%7E/g, '~')}`
   if (next !== `${window.location.pathname}${window.location.search}`) window.history.replaceState(null, '', next)
 }
 

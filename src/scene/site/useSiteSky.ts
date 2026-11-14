@@ -5,32 +5,39 @@ import { horizonAt, type Horizon } from '../../core/terrain/horizon'
 import { discFraction } from '../../core/terrain/visibility'
 import type { TerrainTile } from '../../data/terrain'
 import { useScenario, useTarget } from '../../state/scenarioStore'
-import { dirFromAzEl, earthBasis, earthLitFraction } from './local'
+import { earthBasis, earthLitFraction, sceneDirs } from './local'
 
-/** Sun and Earth in the site frame at the cursor time, plus how much of the Sun the far terrain lets through. */
-export function useSiteSky(tile: TerrainTile | null) {
+export type FarProfile = { azStep: number; el: Float32Array }
+
+/**
+ * Sun and Earth in the scene frame at the cursor time, plus how much of the Sun the far terrain lets through.
+ * `far` is the beyond-the-tile horizon of the point the lander stands on (the site's own, or a nudge point's).
+ */
+export function useSiteSky(tile: TerrainTile | null, far: FarProfile | null = tile?.far ?? null) {
   const target = useTarget()
   const utcMs = useScenario((s) => s.utcMs)
   const mastM = useScenario((s) => s.mastM)
   return useMemo(() => {
     if (!target) return null
-    const site = { latDeg: target.lat, lonDeg: target.lon, elevationM: target.site?.elevationM ?? 0, mastM }
-    const sky = skyAt(site, utcMs)
-    const sunDir = dirFromAzEl(sky.sun.az, sky.sun.el)
-    const earthDir = dirFromAzEl(sky.earth.az, sky.earth.el)
-    const far: Horizon | null = tile ? { kind: 'terrain', label: '', azStep: tile.far.azStep, el: tile.far.el } : null
-    const farEl = far ? horizonAt(far, sky.sun.az) : -Math.PI / 2
+    const point = { latDeg: target.lat, lonDeg: target.lon, elevationM: target.elevationM ?? 0, mastM }
+    const s = target.site
+    const base = s ? { latDeg: s.lat, lonDeg: s.lon, elevationM: s.elevationM ?? 0, mastM } : point
+    const sky = skyAt(point, utcMs) // az/el in the point's own frame: labels and far-horizon lookup
+    const { sunDir, earthDir, northRot } = sceneDirs(base, point, utcMs)
+    const farH: Horizon | null = far ? { kind: 'terrain', label: '', azStep: far.azStep, el: far.el } : null
+    const farEl = farH ? horizonAt(farH, sky.sun.az) : -Math.PI / 2
     return {
       sky,
       sunDir,
       earthDir,
-      earthBasis: earthBasis(site, utcMs),
+      northRot,
+      earthBasis: earthBasis(base, utcMs),
       earthLit: earthLitFraction(sunDir, earthDir),
-      /** 0..1: Sun disc above the 10–200 km horizon. The tile's own geometry shadows everything nearer. */
+      /** 0..1: Sun disc above the beyond-the-tile horizon. The tile's own geometry shadows everything nearer. */
       sunThroughFar: discFraction(sky.sun.el, farEl, sky.sun.angularRadius),
       farElAtSun: farEl,
     }
-  }, [target, utcMs, mastM, tile])
+  }, [target, utcMs, mastM, far])
 }
 
 export type SiteSky = NonNullable<ReturnType<typeof useSiteSky>>

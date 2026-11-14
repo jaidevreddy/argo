@@ -1,8 +1,6 @@
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useMemo, useState } from 'react'
-import { ACESFilmicToneMapping } from 'three'
-import { heightAt, loadTerrain, type TerrainTile } from '../../data/terrain'
-import { useScenario, useTarget } from '../../state/scenarioStore'
+import { Suspense, useMemo } from 'react'
+import { ACESFilmicToneMapping, Vector3 } from 'three'
 import { FarRidges } from './FarRidges'
 import { Lander } from './Lander'
 import { OverlayProjector } from './OverlayProjector'
@@ -12,35 +10,16 @@ import { SunLight } from './SunLight'
 import { Terrain } from './Terrain'
 import { siteOverlay, useSiteView } from './siteView'
 import { useSiteSky } from './useSiteSky'
+import { useSiteTerrain } from './useSiteTerrain'
 import s from './SiteCanvas.module.css'
-
-type Load = { id: string; tile: TerrainTile } | { id: string; error: string }
 
 /** 3D site view: the baked DEM tile around the landing site, the true Sun with shadows, Earth at its true size and phase. */
 export function SiteCanvas() {
-  const target = useTarget()
-  const id = target?.site?.terrain ? target.site.id : null
-  const [load, setLoad] = useState<Load | null>(null)
+  const { id, tile, error, far, center, eyeY } = useSiteTerrain()
   const mode = useSiteView((st) => st.mode)
-  const mastM = useScenario((st) => st.mastM)
-
-  useEffect(() => {
-    if (!id) return
-    let alive = true
-    loadTerrain(id).then(
-      (tile) => alive && setLoad({ id, tile }),
-      (e: Error) => alive && setLoad({ id, error: e.message }),
-    )
-    return () => {
-      alive = false
-    }
-  }, [id])
-
-  const tile = load && load.id === id && 'tile' in load ? load.tile : null
-  const sky = useSiteSky(tile)
-  const groundY = useMemo(() => (tile ? heightAt(tile, 0, 0) : 0), [tile])
-  const eyeY = groundY + mastM / 1000
+  const sky = useSiteSky(tile, far)
   const stand = mode === 'stand'
+  const pin = useMemo(() => new Vector3(center.x, center.y + 0.004, center.z), [center.x, center.y, center.z])
 
   return (
     <div className={s.stage}>
@@ -54,17 +33,17 @@ export function SiteCanvas() {
         aria-label="3D terrain around the landing site. Drag to orbit or look around, scroll to zoom."
       >
         <color attach="background" args={['#050506']} />
-        {tile && sky && (
+        {tile && sky && far && (
           <>
             <Terrain tile={tile} fade={!stand} />
             <SunLight sky={sky} tile={tile} />
-            {!stand && <Lander groundY={groundY} sunDir={sky.sunDir} earthDir={sky.earthDir} />}
-            {stand && <FarRidges tile={tile} eyeY={eyeY} sunDir={sky.sunDir} />}
+            {!stand && <Lander at={center} sunDir={sky.sunDir} earthDir={sky.earthDir} />}
+            {stand && <FarRidges far={far} center={center} eyeY={eyeY} rot={sky.northRot} sunDir={sky.sunDir} />}
             <Suspense fallback={null}>
               <SkyBodies sky={sky} />
             </Suspense>
-            <SiteRig sky={sky} eyeY={eyeY} tileKey={tile.id} />
-            <OverlayProjector sky={sky} siteY={groundY + 0.004} showSite={!stand} />
+            <SiteRig sky={sky} center={center} eyeY={eyeY} tileKey={tile.id} />
+            <OverlayProjector sky={sky} site={pin} showSite={!stand} />
           </>
         )}
       </Canvas>
@@ -82,7 +61,7 @@ export function SiteCanvas() {
       </div>
       {!tile && (
         <p className={s.note} role="status">
-          {load && 'error' in load ? `Terrain could not load: ${load.error}` : 'Loading terrain'}
+          {error ? `Terrain could not load: ${error}` : 'Loading terrain'}
         </p>
       )}
     </div>
