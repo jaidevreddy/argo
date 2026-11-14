@@ -8,8 +8,9 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 | 0 Setup | Done (user) | Vite react-ts + ESLint, packages installed, venv, GitHub, Cloudflare Pages |
 | 1 Astro engine | Done | [phases/phase-1.md](phases/phase-1.md) |
 | 2 Terrain + metrics | Done | [phases/phase-2.md](phases/phase-2.md) |
-| 3 Shell + picker | Next | |
-| 4–8 | Not started | |
+| 3 Shell + picker | Done | [phases/phase-3.md](phases/phase-3.md) |
+| 4 Planner views | Next | |
+| 5–8 | Not started | |
 
 ## Decisions taken
 
@@ -27,9 +28,16 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 - The Mac sandbox can't run node_modules or delete files; user runs tests/build/git.
 - Bake runs on the Mac sandbox (`python3 tools/bake.py` from repo root); outputs land straight in public/data.
 - Parallel tool calls: stage-then-commit must be sequential, or the Mac gets the old file.
+- device_commit_files can silently keep an old upload when the same stagedPath is reused. Re-send with a
+  fresh staging path (e.g. /mnt/user-data/outputs/rN/...) and VERIFY with md5sum on the Mac after every sync.
+- Dev check loop: user runs `npm run dev` on the Mac; Claude inspects http://localhost:5173 via Claude in Chrome
+  (screenshots + console errors).
+- Never use drei <Html> (React 19 root-unmount errors). Markers are a DOM layer positioned by MarkerProjector.
+- Zustand selectors must return stable values; derive objects with useMemo (see useTarget).
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.
 
 ## Next step
 
-Phase 3: process globe textures (lroc_color_poles_8k → jpg, ldem_16_uint → normal map, calibrate its height
-scale against the LOLA polar grid), design tokens, layout shell, Moon globe picker, scenario store + URL sync.
+Phase 4: compute worker (runScenario off the main thread, cached per scenario), verdict bar with live
+numbers and countdowns, sky chart (terrain silhouette + Sun/Earth tracks), timeline with scrubber,
+horizon-type label + assumptions panel, validation view + Verify with JPL button.

@@ -1,0 +1,72 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wrap {
+  position: absolute;
+  left: -12px; /* centre the 24px hit target on the projected point */
+  top: -12px;
+  pointer-events: auto;
+  will-change: transform;
+  transition: opacity var(--t-fast) linear;
+}
+
+.marker {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.85);
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.55);
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.marker:hover .dot {
+  transform: scale(1.4);
+}
+
+.selected .dot {
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  box-shadow:
+    0 0 0 2px rgb(0 0 0 / 0.6),
+    0 0 0 6px rgb(255 255 255 / 0.22);
+}
+
+.label {
+  position: absolute;
+  left: 26px;
+  top: 12px;
+  translate: 0 -50%;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgb(10 10 12 / 0.78);
+  border: 1px solid var(--hairline);
+  font-size: var(--fs-12);
+  white-space: nowrap;
+  color: var(--text-1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+
+.wrap:hover .label,
+.marker:focus-visible + .label,
+.labelOn {
+  opacity: 1;
+}

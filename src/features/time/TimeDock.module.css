@@ -1,0 +1,54 @@
+.dock {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2);
+}
+
+.when {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: 34px;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-sm);
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+}
+
+.when:focus-within {
+  border-color: var(--focus);
+}
+
+.input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: var(--fs-13);
+  color-scheme: dark;
+}
+
+.input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+.zone {
+  font-size: var(--fs-11);
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.local {
+  padding: 0 var(--s-2);
+  font-size: var(--fs-12);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .local {
+    display: none;
+  }
+}

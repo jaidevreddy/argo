@@ -2,7 +2,7 @@
 
 Stack: Vite 8, React 19, TypeScript 6 (strict), three.js 0.187 via @react-three/fiber + drei + postprocessing,
 GSAP (+ @gsap/react), Zustand, astronomy-engine, Supabase (Phase 6, cuttable), Vitest, ESLint.
-Styling: plain CSS. Tokens as CSS variables in `src/styles/tokens.css`, one `.module.css` per component. No Tailwind.
+Icons: lucide-react. Styling: plain CSS. Tokens as CSS variables in `src/styles/tokens.css`, one `.module.css` per component. No Tailwind.
 Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functions.
 
 ## Folder map
@@ -18,11 +18,15 @@ Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functi
       metrics/                  power, comms, windows (spans), summary (runScenario, timeLeft)
     src/data/                   sites.ts (loadSites, loadHorizon), horizons.ts (live Verify call)
     src/workers/                compute.worker.ts                   (Phase 4)
-    src/state/                  scenarioStore, uiStore, urlSync     (Phase 3)
-    src/scene/                  three.js only: globe/, site/, camera/, materials/ (Phase 3, 5)
-    src/features/               one folder per view                 (Phase 3+)
-    src/ui/                     primitives                          (Phase 3)
-    src/styles/                 tokens.css, reset.css, typography.css (Phase 3)
+    src/app/                    App.tsx (layout, loads sites, starts URL sync), App.module.css
+    src/state/                  scenarioStore (target, utcMs, mast, panel, mask; useTarget), urlSync (readUrl/writeUrl)
+    src/scene/frame.ts          Moon body-fixed → three (x, z, −y); latLonToThree; bodyDirections(utc)
+    src/scene/globe/            GlobeCanvas, MoonGlobe, Lighting (true Sun + earthshine), CameraRig (orbit + GSAP
+                                great-circle flight, view offset right of the panel), SiteMarkers (DOM layer),
+                                MarkerProjector (positions DOM markers each frame), markerRegistry
+    src/features/               header/TopBar, picker/SitePanel + CustomPoint, time/TimeDock
+    src/ui/                     Panel, Button, Field (label, hint, error, icon)
+    src/styles/                 tokens.css (all design tokens), base.css (reset, type, themed browser surfaces)
     tests/                      *.spec.ts + fixtures/
     docs/                       these docs
 

@@ -8,6 +8,8 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 | ldem_75s_240m.img/.lbl | same | 3812×3812 int16 LE, polar stereographic, 240 m/px, 75°S–pole | Far-field horizon to 200 km, custom polar points |
 | lroc_color_poles_8k.tif | [NASA SVS CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) | 8192×4096 RGB, equirectangular | Globe colour |
 | ldem_16_uint.tif | same | 5760×2880 uint16 (I;16), equirectangular, 16 px/deg | Globe normal map (relief) |
+| public/data/textures/moon_color_4k.jpg | from lroc_color_poles_8k (tools/textures.py) | 4096×2048 sRGB | Globe colour |
+| public/data/textures/moon_normal_4k.jpg | from ldem_16_uint (tools/textures.py) | 4096×2048 tangent-space normals, OpenGL +Y north, relief ×6 | Globe relief |
 | public/data/textures/earth_2048.jpg | NASA Blue Marble, via three.js examples | 2048×1024 | Earth in the lunar sky |
 | public/data/textures/earth_clouds_1024.png | same | 1024×512 | Earth clouds |
 | tests/fixtures/horizons.json | JPL Horizons API, DE441 | 110 cases | Validation |
@@ -33,6 +35,11 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 Terrain sites (≥ 80°S): south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim, malapert-massif, im-2, im-1.
 Everything else uses the ideal sphere horizon. Site list source of truth: `tools/sites.src.json` (each with a source link:
 LROC featured images, NSSDC tables, JAXA, an Icarus 2024 ridge-site study).
+
+## CGI Moon Kit conventions (checked)
+
+- Equirectangular, longitude 0 at the image CENTRE (Mare Crisium / Tranquillitatis dark where expected).
+- ldem_16_uint: height_m = 0.5 × value − 10000, fitted against LOLA LDEM_75S_240M, rms 42 m.
 
 ## Live data
 

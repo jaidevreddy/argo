@@ -29,6 +29,20 @@ the terrain and the globe are the only imagery.
 - Lander: simple low-poly, Sun-facing panel, mast. Cameras: orbit + stand-here (eye at mast height).
 - Perf: 60 fps on integrated GPU, DPR cap 2, render on demand when idle.
 
+## As built (Phase 3)
+
+- Tokens: src/styles/tokens.css. bg #050506, panel rgb(14 14 16 / .62) + blur 22px, text .93 / .62 / .50,
+  Sun #f5b142, Earth #5aa9ff, focus ring white. UI accent is neutral (never Sun/Earth colours).
+- Globe: MeshStandardMaterial, roughness 1, LROC 4k colour + LOLA normal map ×6 relief, one Sun light
+  (3.4, warm white), earthshine 0.05 from Earth's true direction, ACES tone mapping. View distance 4.4 R,
+  globe shifted right of the panel via camera.setViewOffset.
+- Motion: GSAP great-circle camera flight, power3.inOut, 0.9–2.2 s by angle, small mid-flight pull-back;
+  0 s under prefers-reduced-motion.
+- Markers: real <button>s with aria-label, white dots, selected = halo ring; label on hover/focus/selected;
+  fade out near the limb.
+- No layout shift: controls that come and go are disabled instead (Landing time button).
+- Top scrim gradient keeps the top bar legible over the bright limb.
+
 ## Skill rules (all four read in full; applied by Claude in-chat, not Claude Code)
 
 - ponytail (full): smallest complete change, reuse before writing, one small test for risky logic,
