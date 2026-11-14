@@ -7,8 +7,9 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 |---|---|---|
 | 0 Setup | Done (user) | Vite react-ts + ESLint, packages installed, venv, GitHub, Cloudflare Pages |
 | 1 Astro engine | Done | [phases/phase-1.md](phases/phase-1.md) |
-| 2 Terrain + metrics | Next. Raw data downloaded to data-raw/ | |
-| 3–8 | Not started | |
+| 2 Terrain + metrics | Done | [phases/phase-2.md](phases/phase-2.md) |
+| 3 Shell + picker | Next | |
+| 4–8 | Not started | |
 
 ## Decisions taken
 
@@ -24,9 +25,11 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 - JPL/PDS/SVS unreachable from both sandboxes → Chrome for Horizons, user Terminal for big downloads.
 - Chrome blocks multi-file script downloads → use curl in Terminal.
 - The Mac sandbox can't run node_modules or delete files; user runs tests/build/git.
+- Bake runs on the Mac sandbox (`python3 tools/bake.py` from repo root); outputs land straight in public/data.
+- Parallel tool calls: stage-then-commit must be sequential, or the Mac gets the old file.
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.
 
 ## Next step
 
-Phase 2: tools/bake.py (horizon profiles + terrain tiles per curated polar site), sites.json with source
-links, src/core/terrain + src/core/metrics, tests.
+Phase 3: process globe textures (lroc_color_poles_8k → jpg, ldem_16_uint → normal map, calibrate its height
+scale against the LOLA polar grid), design tokens, layout shell, Moon globe picker, scenario store + URL sync.

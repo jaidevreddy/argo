@@ -8,15 +8,15 @@ Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functi
 ## Folder map
 
     functions/api/horizons.ts   Cloudflare Pages Function: allow-listed proxy to JPL Horizons, cached 1 day
-    tools/                      offline Python (DEM baking). Runs in the Mac's Linux sandbox with system python3
+    tools/                      offline Python: lola.py (DEM access), bake.py, test_bake.py, sites.src.json
     data-raw/                   big NASA downloads, GITIGNORED (see DATA.md)
     public/data/                small baked output the app loads (committed)
     src/core/                   pure TS, no React or three.js imports
       constants.ts units.ts types.ts
       astro/                    vec, frames, ephemeris, topocentric, events, index (skyAt, skyFn)
-      terrain/                  horizon, dem, visibility            (Phase 2)
-      metrics/                  power, comms, windows, summary      (Phase 2)
-    src/data/                   loaders + horizons.ts (live Verify call)
+      terrain/                  horizon (Horizon, terrainHorizon, sphereHorizon, horizonAt), visibility (discFraction)
+      metrics/                  power, comms, windows (spans), summary (runScenario, timeLeft)
+    src/data/                   sites.ts (loadSites, loadHorizon), horizons.ts (live Verify call)
     src/workers/                compute.worker.ts                   (Phase 4)
     src/state/                  scenarioStore, uiStore, urlSync     (Phase 3)
     src/scene/                  three.js only: globe/, site/, camera/, materials/ (Phase 3, 5)

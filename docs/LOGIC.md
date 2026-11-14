@@ -18,7 +18,7 @@ Rule: angles are radians inside `src/core`, degrees only at the UI edge. Times a
 Frame note: Horizons and LOLA use the Mean-Earth (ME) frame; astronomy-engine uses the IAU model.
 They differ by ~100 m on the surface. Measured effect on angles: ≤ 0.0033° (see Validation).
 
-## Horizon (Phase 2)
+## Horizon (built, Phase 2)
 
 Per azimuth (0.5° steps, 720 values) march outward along the great circle to 200 km, keep the max of
 
@@ -26,7 +26,11 @@ Per azimuth (0.5° steps, 720 values) march outward along the great circle to 20
     ε = atan2((R + h2)·cos θ − (R + h1), (R + h2)·sin θ)
 
 h1 = observer height (surface + mast), h2 = terrain height at the sample. Includes curvature.
-Near field from LDEM_80S_40M, far field from LDEM_75S_240M.
+Near field 200 m–20 km from LDEM_80S_40M (40 m steps), far field 20–200 km from LDEM_75S_240M (240 m steps).
+Where the 40 m grid has no coverage (north of 80°S) the 240 m grid fills in.
+Terrain closer than 200 m is ignored: pad scale, and the 40 m grid cannot resolve it. Baked with a 2 m mast;
+the app's mast setting changes the sphere horizon only (shortcut: re-bake per mast height if a judge asks).
+Bake: `tools/bake.py` (1.5 s for 7 sites). Tests: `tools/test_bake.py` (synthetic peak within 0.03°, flat sphere = −0.0869°).
 
 | Site | Horizon | UI label |
 |---|---|---|
@@ -34,7 +38,7 @@ Near field from LDEM_80S_40M, far field from LDEM_75S_240M.
 | Custom, ≥ 80°S | Computed from the 240 m grid | Terrain horizon (LOLA, coarse) |
 | Elsewhere | Sphere + mast dip, −acos(R/(R+h)) | Ideal sphere horizon |
 
-## Visibility and metrics (Phase 2)
+## Visibility and metrics (built, Phase 2)
 
 Disc fraction above horizon H for a disc of angular radius ρ, x = clamp((el − H)/ρ, −1, 1):
 
@@ -46,8 +50,8 @@ Disc fraction above horizon H for a disc of angular radius ρ, x = clamp((el −
 | Power, tracking panel | f_sun |
 | Power, fixed flat panel | f_sun × max(0, sin el_sun) |
 | DTE link | Earth centre el − H − mask > 0 (mask default 0°, up to 5°) |
-| Events | Sign change on a 10-min series, bisection to 1 s (`events.ts`) |
-| Windows | Longest sunlit span, longest dark span, ops window = sunlit ∧ Earth visible |
+| Events | Sun: top limb vs horizon. Earth: centre vs horizon + mask. Sign change on the series, bisection to 1 s |
+| Windows | Spans close at sample midpoints. A span reaching the end of the range is `openEnd`; the UI shows "more than X h" |
 
 No opaque score. Any ranking shows its weights and lets the user edit them.
 
@@ -59,3 +63,21 @@ No opaque score. Any ranking shows its weights and lets the user edit them.
 - Apollo 11 landing 1969-07-20 20:17:40 UT: Sun az 88.805° el 10.702° (Horizons 88.805 / 10.703).
 - Sanity: Sun < 1.65° at the pole all year; Earth below −70° at far-side centre; Earth near zenith at 0,0;
   one sunrise + one sunset per lunar day at the equator, refined to < 0.001°.
+
+## Validation (Phase 2 results)
+
+- Projection orientation confirmed on 5 craters (Shackleton, Shoemaker, Haworth, Faustini, de Gerlache).
+- IM-1: baked elevation 2594 m vs LROC 2579 m; local slope 11.9° vs LROC "sloped at 12°".
+- One year from 2026-01-01, 1 h steps, tracking panel, 0° mask:
+
+| Site | Sunlit | Earth in view | Both | Longest dark |
+|---|---|---|---|---|
+| Shackleton rim at ridge | 81.7% | 46.5% | 42.3% | 203 h |
+| Connecting Ridge C1 | 57.8% | 23.4% | 13.6% | 355 h |
+| Malapert Massif | 43.8% | 73.8% | 32.0% | 523 h |
+| South pole point | 27.9% | 25.9% | 6.3% | 651 h |
+
+  Shackleton rim matches LROC's "illuminated up to 90% of the time" for that ridge. Malapert's high Earth
+  visibility matches its reputation as a comms site (nearside-facing massif).
+- Equator (Apollo 11) lunar day: 48–53% sunlit, Earth 100%, one sunrise + one sunset, ~14.8 days lit.
+- Far side (Chang'e 6): Earth 0%.

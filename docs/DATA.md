@@ -22,6 +22,18 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
   ρ = hypot(x, y), lat = −90° + 2·atan(ρ / 2R) in degrees, lon = atan2(x, y) (east-positive).
   CHECK the axis sign convention against a known feature (Shackleton centre ≈ 89.67°S, 129.8°E) before trusting it.
 
+## Baked output (public/data, committed)
+
+| Path | Content |
+|---|---|
+| sites.json | 20 curated sites: id, name, mission, agency, status, region, lat, lon (east +), date (UTC), source URL, terrain flag, elevationM |
+| horizon/<id>.json | 720 horizon elevations (deg) at 0.5° azimuth steps, 200 m–200 km, 2 m mast |
+| terrain/<id>.bin + .json | 512×512 int16 LE, 0.25 m units, 40 m spacing (20.4 km square), row 0 = north, col 0 = west, height above the site's tangent plane (curvature included) |
+
+Terrain sites (≥ 80°S): south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim, malapert-massif, im-2, im-1.
+Everything else uses the ideal sphere horizon. Site list source of truth: `tools/sites.src.json` (each with a source link:
+LROC featured images, NSSDC tables, JAXA, an Icarus 2024 ridge-site study).
+
 ## Live data
 
 Only the optional "Verify with JPL" button calls an external API (Horizons via `/api/horizons`). No keys.
