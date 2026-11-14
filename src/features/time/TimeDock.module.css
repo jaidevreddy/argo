@@ -24,8 +24,8 @@
   align-items: center;
   gap: var(--s-2);
   height: 30px;
-  padding: 0 var(--s-3);
-  border-radius: var(--r-sm);
+  padding: 0 14px;
+  border-radius: 999px;
   background: var(--surface-1);
   border: 1px solid var(--hairline);
 }

@@ -15,7 +15,7 @@
   align-items: center;
   gap: var(--s-2);
   padding: var(--s-1);
-  border-radius: var(--r-md);
+  border-radius: 999px;
   background: var(--panel-bg);
   border: 1px solid var(--hairline);
   backdrop-filter: var(--panel-blur);
@@ -42,8 +42,8 @@
   pointer-events: auto;
   max-width: 62ch;
   margin-bottom: var(--s-2);
-  padding: var(--s-1) var(--s-3);
-  border-radius: var(--r-sm);
+  padding: 5px 14px;
+  border-radius: var(--r-md);
   background: rgb(5 5 6 / 0.55);
   font-size: var(--fs-12);
   color: var(--text-2);

@@ -45,7 +45,7 @@
   width: 300px;
   padding: 14px;
   translate: -50% 0;
-  border-radius: 20px;
+  border-radius: var(--r-lg);
   border: 1px solid var(--hairline-strong);
   background: rgb(20 20 23 / 0.95);
   backdrop-filter: blur(28px) saturate(150%);
@@ -290,7 +290,7 @@
   width: 26px;
   height: 24px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 999px;
   background: none;
   text-align: center;
   font-size: var(--fs-13);

@@ -52,7 +52,7 @@
   width: 100%;
   padding: var(--s-2) var(--s-2);
   border: 0;
-  border-radius: var(--r-sm);
+  border-radius: var(--r-md);
   background: transparent;
   text-align: left;
   transition: background var(--t-fast) var(--ease-out);

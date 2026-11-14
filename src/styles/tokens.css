@@ -47,9 +47,9 @@
   --s-5: 24px;
   --s-6: 32px;
   --s-7: 48px;
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 18px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 22px; /* inner shapes use r-lg minus the padding they sit in (concentric) */
 
   /* motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

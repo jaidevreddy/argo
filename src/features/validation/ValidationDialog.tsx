@@ -99,7 +99,7 @@ export function ValidationDialog({ open, onClose }: { open: boolean; onClose: ()
           {live.state === 'idle' && <p>Ask JPL Horizons for this site and time and compare.</p>}
           {live.state === 'busy' && <p>Asking JPL Horizons…</p>}
         </div>
-        <Button onClick={verify} disabled={live.state === 'busy' || !target}>Verify with JPL</Button>
+        <Button variant="primary" onClick={verify} disabled={live.state === 'busy' || !target}>Verify with JPL</Button>
       </section>
 
       <section>

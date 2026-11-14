@@ -34,7 +34,7 @@ export function CustomPoint() {
         <Field label="Latitude °" inputMode="decimal" placeholder="−89.45" value={lat} onChange={(e) => setLat(e.target.value)} error={tried ? pLat.error : undefined} />
         <Field label="Longitude °E" inputMode="decimal" placeholder="−137.3" value={lon} onChange={(e) => setLon(e.target.value)} error={tried ? pLon.error : undefined} />
       </div>
-      <Button type="submit" size="sm">Go to point</Button>
+      <Button type="submit" size="sm" variant="primary">Go to point</Button>
     </form>
   )
 }

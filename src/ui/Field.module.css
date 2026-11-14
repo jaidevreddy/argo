@@ -5,6 +5,7 @@
 }
 
 .label {
+  padding-left: 14px; /* label starts where the text inside the capsule does */
   font-size: var(--fs-12);
   color: var(--text-2);
 }
@@ -15,10 +16,10 @@
   align-items: center;
   gap: var(--s-2);
   height: 36px;
-  padding: 0 var(--s-3);
+  padding: 0 14px;
   background: var(--surface-1);
   border: 1px solid var(--hairline);
-  border-radius: var(--r-sm);
+  border-radius: 999px;
   transition: border-color var(--t-fast) var(--ease-out), background var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
 }
 

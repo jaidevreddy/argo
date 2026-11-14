@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from 'react'
 import s from './Button.module.css'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'plain' | 'quiet'
+  variant?: 'plain' | 'quiet' | 'primary'
   size?: 'sm' | 'md'
 }
 

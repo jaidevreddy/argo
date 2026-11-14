@@ -62,7 +62,7 @@ export function CompareView() {
             <p className={s.emptyTitle}>Put up to three landings side by side</p>
             <p className={s.emptyText}>Different sites on one date, or one site on different dates. Each gets the same test: what the first {MISSION_DAYS} days give you in power and Earth link.</p>
             <div className={s.emptyActions}>
-              <Button onClick={() => addCompare()}>
+              <Button variant="primary" onClick={() => addCompare()}>
                 <Plus size={14} aria-hidden="true" /> Add current scenario
               </Button>
               <Button variant="quiet" onClick={addArtemis}>Try the three Artemis ridge sites</Button>

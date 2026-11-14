@@ -4,7 +4,7 @@
   justify-content: center;
   gap: var(--s-2);
   border: 1px solid var(--hairline);
-  border-radius: var(--r-sm);
+  border-radius: 999px; /* capsule: radius is half the height */
   color: var(--text-1);
   white-space: nowrap;
   transition:
@@ -31,6 +31,17 @@
   border-color: var(--hairline-strong);
 }
 
+.primary {
+  background: var(--text-1);
+  border-color: transparent;
+  color: #0b0b0d;
+  font-weight: 600;
+}
+
+.primary:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.86);
+}
+
 .quiet {
   background: transparent;
   border-color: transparent;
@@ -44,13 +55,13 @@
 
 .sm {
   height: 30px;
-  padding: 0 var(--s-3);
+  padding: 0 14px;
   font-size: var(--fs-13);
 }
 
 .md {
   height: 36px;
-  padding: 0 var(--s-4);
+  padding: 0 18px;
   font-size: var(--fs-13);
   font-weight: 500;
 }
