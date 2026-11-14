@@ -43,6 +43,12 @@ the terrain and the globe are the only imagery.
 - No layout shift: controls that come and go are disabled instead (Landing time button).
 - Top scrim gradient keeps the top bar legible over the bright limb.
 
+## Globe poles (fix before Phase 7)
+
+The equirectangular maps pinched at the poles (radial streaks). MoonGlobe now blends polar stereographic caps
+(colour + object-space relief, tools/polar_caps.py) from 58° to 62° latitude in the standard material's shader.
+The cap mapping uses only the unit position (no atan), so there is no seam and no singularity at the pole.
+
 ## As built (Phase 5, 3D site)
 
 - Own Canvas, swapped in for the globe (one WebGL context at a time). Log depth buffer: 1 m to 300 km in one view.

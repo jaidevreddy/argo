@@ -10,6 +10,7 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 | ldem_16_uint.tif | same | 5760×2880 uint16 (I;16), equirectangular, 16 px/deg | Globe normal map (relief) |
 | public/data/textures/moon_color_4k.jpg | from lroc_color_poles_8k (tools/textures.py) | 4096×2048 sRGB | Globe colour |
 | public/data/textures/moon_normal_4k.jpg | from ldem_16_uint (tools/textures.py) | 4096×2048 tangent-space normals, OpenGL +Y north, relief ×6 | Globe relief |
+| public/data/textures/moon_cap_{s,n}_{color,normal}.jpg | tools/polar_caps.py from lroc_color_poles_8k + ldem_16 (+ LDEM_75S_240M from 75°S for the south relief) | 2048² polar stereographic 55°–90°, object-space normals, relief ×6 | Globe poles without the equirectangular pinch |
 | public/data/textures/earth_2048.jpg | NASA Blue Marble, via three.js examples | 2048×1024 | Earth in the lunar sky |
 | public/data/textures/earth_clouds_1024.png | same | 1024×512 | Earth clouds |
 | data-raw/crops/<id>_{near,far}.f32/.json | tools/fetch_dem.py: HTTP Range reads from PDS SLDEM2015 tiles (512 ppd near, 256 ppd every 4th far) and LOLA LDEM_60S_60M (Chandrayaan-3) | float32 m, row 0 north, ±21 km and ±205 km boxes, 75 MB total | Tiles + horizons for the 13 non-polar sites |
