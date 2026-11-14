@@ -1,6 +1,6 @@
 import type { PanelType } from '../core/metrics/power'
 import { DEFAULT_MAST_HEIGHT_M } from '../core/constants'
-import { useScenario, type Target } from './scenarioStore'
+import { useScenario, type Target, type View } from './scenarioStore'
 
 /**
  * The URL is the share link: ?site=im-1&t=2024-02-22T23:23:53Z  or  ?lat=-89.4&lon=-136.2&t=...
@@ -8,7 +8,7 @@ import { useScenario, type Target } from './scenarioStore'
  */
 export function readUrl(search = window.location.search) {
   const q = new URLSearchParams(search)
-  const out: Partial<{ target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number }> = {}
+  const out: Partial<{ target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View }> = {}
   const site = q.get('site')
   const lat = Number(q.get('lat'))
   const lon = Number(q.get('lon'))
@@ -22,34 +22,40 @@ export function readUrl(search = window.location.search) {
   if (panel === 'tracking' || panel === 'flat') out.panel = panel
   const mask = Number(q.get('mask'))
   if (q.has('mask') && mask >= 0 && mask <= 10) out.maskDeg = mask
+  const view = q.get('view')
+  if (view === 'globe' || view === 'sky') out.view = view
   return out
 }
 
-export function writeUrl(s: { target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number }) {
+export function writeUrl(s: { target: Target; utcMs: number; mastM: number; panel: PanelType; maskDeg: number; view: View }) {
   const q = new URLSearchParams()
   if (s.target.kind === 'site') q.set('site', s.target.id)
   else {
     q.set('lat', s.target.lat.toFixed(4))
     q.set('lon', s.target.lon.toFixed(4))
   }
-  q.set('t', new Date(s.utcMs).toISOString().replace('.000Z', 'Z'))
+  q.set('t', new Date(Math.round(s.utcMs / 1000) * 1000).toISOString().replace('.000Z', 'Z'))
   if (s.mastM !== DEFAULT_MAST_HEIGHT_M) q.set('mast', String(s.mastM))
   if (s.panel !== 'tracking') q.set('panel', s.panel)
   if (s.maskDeg !== 0) q.set('mask', String(s.maskDeg))
+  if (s.view !== 'globe') q.set('view', s.view)
   const next = `${window.location.pathname}?${q.toString().replace(/%3A/g, ':')}`
   if (next !== `${window.location.pathname}${window.location.search}`) window.history.replaceState(null, '', next)
 }
 
-/** Apply the URL once, then mirror state into it (coalesced to one write per frame). */
+/** Apply the URL once, then mirror state into it (at most 4 writes a second, so playback stays smooth). */
 export function startUrlSync() {
   useScenario.getState().patch(readUrl())
-  let queued = false
-  return useScenario.subscribe(() => {
-    if (queued) return
-    queued = true
-    requestAnimationFrame(() => {
-      queued = false
+  let timer: ReturnType<typeof setTimeout> | null = null
+  const unsub = useScenario.subscribe(() => {
+    if (timer) return
+    timer = setTimeout(() => {
+      timer = null
       writeUrl(useScenario.getState())
-    })
+    }, 250)
   })
+  return () => {
+    unsub()
+    if (timer) clearTimeout(timer)
+  }
 }

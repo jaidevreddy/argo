@@ -1,0 +1,178 @@
+.panel {
+  background: rgb(11 11 13 / 0.97) !important;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  --sun-mark: #c4862a;
+  --earth-mark: #4a94e6;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-4) var(--s-2);
+}
+
+.title {
+  font-size: var(--fs-15);
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  max-width: 60ch;
+}
+
+.legend {
+  display: flex;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.keySun,
+.keyEarth,
+.keyGround {
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.keySun {
+  background: var(--sun-mark);
+}
+
+.keyEarth {
+  background: var(--earth-mark);
+}
+
+.keyGround {
+  height: 8px;
+  background: rgb(255 255 255 / 0.1);
+  border-top: 1.5px solid rgb(255 255 255 / 0.7);
+}
+
+.plot {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.plot svg {
+  display: block;
+  cursor: crosshair;
+}
+
+.grid {
+  stroke: rgb(255 255 255 / 0.06);
+  stroke-width: 1;
+}
+
+.zero {
+  stroke: rgb(255 255 255 / 0.22);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.tickX,
+.tickY {
+  font-family: var(--font-num);
+  font-size: 11px;
+  fill: var(--text-3);
+}
+
+.tickX {
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+.ground {
+  fill: rgb(255 255 255 / 0.08);
+}
+
+.horizonLine {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.72);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.track {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sunTrack {
+  stroke: var(--sun-mark);
+}
+
+.earthTrack {
+  stroke: var(--earth-mark);
+}
+
+.below {
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+  opacity: 0.55;
+}
+
+.sunDisc {
+  fill: var(--sun);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.earthDisc {
+  fill: rgb(90 169 255 / 0.28);
+  stroke: var(--earth);
+  stroke-width: 1.5;
+}
+
+.direct {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text-1);
+  paint-order: stroke;
+  stroke: rgb(5 5 6 / 0.85);
+  stroke-width: 3px;
+}
+
+.cross {
+  stroke: rgb(255 255 255 / 0.35);
+  stroke-width: 1;
+}
+
+.crossDot {
+  fill: #fff;
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.tip {
+  position: absolute;
+  min-width: 150px;
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  background: rgb(10 10 12 / 0.92);
+  border: 1px solid var(--hairline-strong);
+  font-size: var(--fs-12);
+  color: var(--text-1);
+  pointer-events: none;
+}

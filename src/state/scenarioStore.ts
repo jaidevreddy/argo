@@ -4,6 +4,8 @@ import { DEFAULT_MAST_HEIGHT_M } from '../core/constants'
 import type { PanelType } from '../core/metrics/power'
 import type { SiteRecord } from '../data/sites'
 
+export type View = 'globe' | 'sky'
+
 export type Target = { kind: 'site'; id: string } | { kind: 'custom'; lat: number; lon: number }
 
 /** What every view needs to know about the chosen place. */
@@ -26,13 +28,14 @@ interface ScenarioState {
   mastM: number
   panel: PanelType
   maskDeg: number
+  view: View
   setSites: (sites: SiteRecord[]) => void
   setSitesError: () => void
   selectSite: (id: string, opts?: { keepTime?: boolean }) => void
   setCustom: (lat: number, lon: number) => void
   setTime: (utcMs: number) => void
   shiftDays: (days: number) => void
-  patch: (p: Partial<Pick<ScenarioState, 'target' | 'utcMs' | 'mastM' | 'panel' | 'maskDeg'>>) => void
+  patch: (p: Partial<Pick<ScenarioState, 'target' | 'utcMs' | 'mastM' | 'panel' | 'maskDeg' | 'view'>>) => void
 }
 
 export const useScenario = create<ScenarioState>()((set, get) => ({
@@ -43,6 +46,7 @@ export const useScenario = create<ScenarioState>()((set, get) => ({
   mastM: DEFAULT_MAST_HEIGHT_M,
   panel: 'tracking',
   maskDeg: 0,
+  view: 'globe',
   setSites: (sites) => set({ sites, sitesStatus: 'ready' }),
   setSitesError: () => set({ sitesStatus: 'error' }),
   selectSite: (id, opts) => {

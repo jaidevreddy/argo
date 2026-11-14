@@ -9,8 +9,9 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 | 1 Astro engine | Done | [phases/phase-1.md](phases/phase-1.md) |
 | 2 Terrain + metrics | Done | [phases/phase-2.md](phases/phase-2.md) |
 | 3 Shell + picker | Done | [phases/phase-3.md](phases/phase-3.md) |
-| 4 Planner views | Next | |
-| 5–8 | Not started | |
+| 4 Planner views | Done | [phases/phase-4.md](phases/phase-4.md) |
+| 5 3D site view | Next | |
+| 6–8 | Not started | |
 
 ## Decisions taken
 
@@ -34,10 +35,13 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
   (screenshots + console errors).
 - Never use drei <Html> (React 19 root-unmount errors). Markers are a DOM layer positioned by MarkerProjector.
 - Zustand selectors must return stable values; derive objects with useMemo (see useTarget).
+- Epoch ms are NEGATIVE before 1970 (Apollo). Never use -1 / `< 0` as a "no time" sentinel; use null.
+- Chrome javascript_tool output is blocked if it contains the URL query string; don't return location.search.
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.
 
 ## Next step
 
-Phase 4: compute worker (runScenario off the main thread, cached per scenario), verdict bar with live
-numbers and countdowns, sky chart (terrain silhouette + Sun/Earth tracks), timeline with scrubber,
-horizon-type label + assumptions panel, validation view + Verify with JPL button.
+Phase 5: 3D site view. Third view tab "Site 3D": LOLA 512² tile (public/data/terrain/<id>.bin, int16 0.25 m,
+row 0 north, col 0 west, tangent-plane heights), Sun directional light on the true topocentric vector with
+shadows, Sun disc + Earth sphere at true az/el/size/phase, far horizon ring from the baked profile, lander,
+orbit + stand-here cameras, GSAP flight globe → site. Exit: shadows agree with the sky chart at 3 times.

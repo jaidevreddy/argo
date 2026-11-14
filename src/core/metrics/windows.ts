@@ -12,15 +12,16 @@ export interface Span {
 export function spans(t: ArrayLike<number>, on: ArrayLike<boolean>): Span[] {
   const out: Span[] = []
   const n = t.length
-  let start = -1
+  // null sentinel, not -1: epoch ms are negative before 1970 (Apollo)
+  let start: number | null = null
   for (let i = 0; i < n; i++) {
-    if (on[i] && start < 0) start = i === 0 ? t[0] : (t[i - 1] + t[i]) / 2
-    if (!on[i] && start >= 0) {
+    if (on[i] && start === null) start = i === 0 ? t[0] : (t[i - 1] + t[i]) / 2
+    if (!on[i] && start !== null) {
       out.push({ start, end: (t[i - 1] + t[i]) / 2 })
-      start = -1
+      start = null
     }
   }
-  if (start >= 0) out.push({ start, end: t[n - 1], openEnd: true })
+  if (start !== null) out.push({ start, end: t[n - 1], openEnd: true })
   return out
 }
 

@@ -43,6 +43,15 @@ the terrain and the globe are the only imagery.
 - No layout shift: controls that come and go are disabled instead (Landing time button).
 - Top scrim gradient keeps the top bar legible over the bright limb.
 
+## Charts (Phase 4, dataviz skill)
+
+- Chart mark colours validated with the dataviz validator on the dark surface: Sun #c4862a, Earth #4a94e6
+  (lightness band pass, CVD ΔE 25.5, normal ΔE 27.1, contrast ≥ 3:1). Bright --sun/--earth stay for the body discs.
+- Legend always present (2 series + horizon) and direct labels on the current discs. Below-horizon track =
+  dashed and dimmed (secondary encoding, not colour alone). "Both" band is neutral white.
+- One y-axis everywhere (no dual axes). Hover crosshair + tooltip on the sky chart; timeline is a keyboard slider.
+- Bodies drawn at true angular size, floored at 5 px; Earth disc translucent so tracks show through.
+
 ## Skill rules (all four read in full; applied by Claude in-chat, not Claude Code)
 
 - ponytail (full): smallest complete change, reuse before writing, one small test for risky logic,

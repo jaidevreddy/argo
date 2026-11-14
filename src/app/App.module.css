@@ -8,10 +8,10 @@
 .overlay {
   position: absolute;
   inset: 0;
-  z-index: 30; /* above the globe's HTML markers (z 0-20) */
+  z-index: 30; /* above the globe's DOM markers (z 10) */
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 320px minmax(0, 1fr) 340px;
+  grid-template-rows: 40px minmax(0, 1fr) auto;
   gap: var(--s-4);
   padding: var(--s-4) var(--s-5) var(--s-5);
   pointer-events: none;
@@ -33,42 +33,68 @@
 
 .top {
   grid-column: 1 / -1;
-  height: 40px;
   display: flex;
   align-items: center;
 }
 
 .left {
+  grid-column: 1;
   grid-row: 2 / 4;
   min-height: 0;
   display: flex;
 }
 
+.center {
+  grid-column: 2;
+  grid-row: 2;
+  min-height: 0;
+  display: flex;
+}
+
+.right {
+  grid-column: 3;
+  grid-row: 2 / 4;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
 .bottom {
   grid-column: 2;
   grid-row: 3;
+  min-width: 0;
   display: flex;
-  justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
+  .overlay {
+    grid-template-columns: 280px minmax(0, 1fr) 300px;
+  }
+}
+
+@media (max-width: 900px) {
   .overlay {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto minmax(240px, 1fr) auto auto auto;
     padding: var(--s-3);
+    overflow-y: auto;
+    pointer-events: auto;
   }
 
-  .left {
-    grid-row: 3;
-    max-height: 38vh;
+  .left,
+  .right,
+  .center,
+  .bottom {
+    grid-column: 1;
+    grid-row: auto;
   }
 
-  .left > * {
+  .left > *,
+  .right > * {
     width: 100%;
   }
 
-  .bottom {
-    grid-column: 1;
-    grid-row: 4;
+  .left {
+    max-height: 40vh;
   }
 }

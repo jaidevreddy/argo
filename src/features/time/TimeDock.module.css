@@ -1,15 +1,29 @@
 .dock {
+  display: grid;
+  gap: var(--s-2);
+  width: 100%;
+  padding: var(--s-2) var(--s-3) var(--s-2);
+}
+
+.bar {
   display: flex;
   align-items: center;
   gap: var(--s-2);
-  padding: var(--s-2);
+  min-width: 0;
+}
+
+.sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 var(--s-1);
+  background: var(--hairline);
 }
 
 .when {
   display: flex;
   align-items: center;
   gap: var(--s-2);
-  height: 34px;
+  height: 30px;
   padding: 0 var(--s-3);
   border-radius: var(--r-sm);
   background: var(--surface-1);
@@ -40,15 +54,6 @@
   color: var(--text-3);
 }
 
-.local {
-  padding: 0 var(--s-2);
-  font-size: var(--fs-12);
-  color: var(--text-3);
-  white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-  .local {
-    display: none;
-  }
+.spacer {
+  flex: 1;
 }

@@ -1,0 +1,81 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  --sun-mark: #c4862a;
+  --earth-mark: #4a94e6;
+}
+
+.svg {
+  display: block;
+  cursor: ew-resize;
+  touch-action: none;
+  border-radius: var(--r-sm);
+}
+
+.svg:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.label,
+.tick {
+  font-size: 10.5px;
+  fill: var(--text-3);
+}
+
+.tick {
+  font-family: var(--font-num);
+}
+
+.zero {
+  stroke: rgb(255 255 255 / 0.28);
+  stroke-dasharray: 3 4;
+}
+
+.sunCurve,
+.earthCurve {
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linejoin: round;
+}
+
+.sunCurve {
+  stroke: var(--sun-mark);
+}
+
+.earthCurve {
+  stroke: var(--earth-mark);
+}
+
+.track {
+  fill: rgb(255 255 255 / 0.04);
+}
+
+.lit {
+  fill: var(--sun-mark);
+}
+
+.comm {
+  fill: var(--earth-mark);
+}
+
+.ops {
+  fill: rgb(255 255 255 / 0.85);
+}
+
+.cursor {
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+.handle {
+  fill: #fff;
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.empty {
+  padding: var(--s-3) 0;
+  font-size: var(--fs-12);
+  color: var(--text-3);
+}

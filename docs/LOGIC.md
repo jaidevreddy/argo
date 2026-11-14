@@ -64,6 +64,13 @@ No opaque score. Any ranking shows its weights and lets the user edit them.
 - Sanity: Sun < 1.65° at the pole all year; Earth below −70° at far-side centre; Earth near zenith at 0,0;
   one sunrise + one sunset per lunar day at the equator, refined to < 0.001°.
 
+## Window model (Phase 4)
+
+The worker samples a 32-day window starting 2 days before the cursor's UTC day, 10-minute steps (4609 samples).
+It is reused while the cursor stays inside [start + 12 h, end − 3 d]; leaving that range anchors a new window.
+Instant values at the cursor are computed on the main thread (skyAt + horizonAt); countdowns come from the
+window's spans and events, so "more than X" appears when a span runs to the window end.
+
 ## Validation (Phase 2 results)
 
 - Projection orientation confirmed on 5 craters (Shackleton, Shoemaker, Haworth, Faustini, de Gerlache).

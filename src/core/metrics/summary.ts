@@ -131,3 +131,10 @@ export function timeLeft(r: ScenarioResult, t: number): { sunset: TimeLeft | nul
   }
   return { sunset: left(r.lit), earthset: left(r.comm) }
 }
+
+/** Next rise or set strictly after t, from events found in the window (null if none in range). */
+export function nextEvent(events: Crossing[], kind: Crossing['kind'], t: number): number | null {
+  let best: number | null = null
+  for (const e of events) if (e.kind === kind && e.t > t && (best === null || e.t < best)) best = e.t
+  return best
+}

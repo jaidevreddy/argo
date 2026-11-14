@@ -2,13 +2,21 @@ import { useEffect } from 'react'
 import { loadSites } from '../data/sites'
 import { TopBar } from '../features/header/TopBar'
 import { SitePanel } from '../features/picker/SitePanel'
+import { SkyChart } from '../features/skychart/SkyChart'
 import { TimeDock } from '../features/time/TimeDock'
+import { VerdictPanel } from '../features/verdict/VerdictPanel'
 import { GlobeCanvas } from '../scene/globe/GlobeCanvas'
 import { DEFAULT_SITE_ID, useScenario } from '../state/scenarioStore'
+import { useScenarioCompute } from '../state/useScenarioCompute'
 import { startUrlSync } from '../state/urlSync'
+import { useShortcuts } from './useShortcuts'
 import s from './App.module.css'
 
 export function App() {
+  useScenarioCompute()
+  useShortcuts()
+  const view = useScenario((st) => st.view)
+
   useEffect(() => {
     const stop = startUrlSync()
     let alive = true
@@ -38,6 +46,14 @@ export function App() {
         </div>
         <div className={s.left}>
           <SitePanel />
+        </div>
+        {view === 'sky' && (
+          <div className={s.center}>
+            <SkyChart />
+          </div>
+        )}
+        <div className={s.right}>
+          <VerdictPanel />
         </div>
         <div className={s.bottom}>
           <TimeDock />

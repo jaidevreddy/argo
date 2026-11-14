@@ -7,7 +7,7 @@ import { Vector3 } from 'three'
 import { useTarget } from '../../state/scenarioStore'
 import { latLonToThree } from '../frame'
 
-const VIEW_DIST = 4.4
+const VIEW_DIST = 5.4
 const LAT_CLAMP = 62 // keep the camera off the pole axis so OrbitControls never hits its singularity
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -25,11 +25,11 @@ export function CameraRig() {
   const size = useThree((s) => s.size)
   const first = useRef(true)
 
-  // Centre the Moon in the space right of the site panel (desktop), not under it.
+  // Centre the Moon in the space between the side panels and above the time dock (desktop).
   useEffect(() => {
     if (!('setViewOffset' in camera)) return
-    const shift = size.width > 768 ? Math.min(180, size.width * 0.12) : 0
-    camera.setViewOffset(size.width, size.height, -shift, 0, size.width, size.height)
+    const lift = size.width > 768 ? Math.min(80, size.height * 0.09) : 0
+    camera.setViewOffset(size.width, size.height, 0, lift, size.width, size.height)
     invalidate()
   }, [camera, size.width, size.height, invalidate])
 
@@ -82,7 +82,7 @@ export function CameraRig() {
       rotateSpeed={0.5}
       zoomSpeed={0.6}
       minDistance={1.25}
-      maxDistance={9}
+      maxDistance={10}
     />
   )
 }

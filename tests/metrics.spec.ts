@@ -74,6 +74,16 @@ describe('scenarios', () => {
     expect(timeLeft(short, rise + 36e5).sunset!.atLeast).toBe(true)
   })
 
+  test('Apollo 11 landing window (before 1970, negative epoch ms): Sun up, Earth up all window', () => {
+    const startMs = Date.parse('1969-07-18T00:00:00Z')
+    const r = runScenario({ site: { latDeg: 0.67416, lonDeg: 23.47314 }, horizon: sphereHorizon(), panel: 'tracking', maskDeg: 0, startMs, endMs: startMs + 32 * DAY, stepMs: 10 * 6e4 })
+    expect(r.stats.sunlitPct).toBeGreaterThan(45)
+    expect(r.stats.earthPct).toBe(100)
+    expect(r.lit.length).toBeGreaterThan(0)
+    const landing = Date.parse('1969-07-20T20:17:40Z')
+    expect(timeLeft(r, landing).sunset!.hours / 24).toBeGreaterThan(10) // landed ~1 day after local sunrise
+  })
+
   test("Chang'e 6 (far side): no direct-to-Earth link at all", () => {
     const r = runScenario({ site: { latDeg: -41.6385, lonDeg: -153.9852 }, horizon: sphereHorizon(), panel: 'tracking', maskDeg: 0, ...lunarDay('2024-06-01T00:00:00Z') })
     expect(r.stats.earthPct).toBe(0)

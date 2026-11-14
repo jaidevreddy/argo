@@ -17,15 +17,21 @@ Hosting: Cloudflare Pages (dashboard-configured), `functions/` for server functi
       terrain/                  horizon (Horizon, terrainHorizon, sphereHorizon, horizonAt), visibility (discFraction)
       metrics/                  power, comms, windows (spans), summary (runScenario, timeLeft)
     src/data/                   sites.ts (loadSites, loadHorizon), horizons.ts (live Verify call)
-    src/workers/                compute.worker.ts                   (Phase 4)
+    src/workers/                compute.worker.ts (runScenario off-thread, transfers typed arrays), computeClient.ts
     src/app/                    App.tsx (layout, loads sites, starts URL sync), App.module.css
     src/state/                  scenarioStore (target, utcMs, mast, panel, mask; useTarget), urlSync (readUrl/writeUrl)
     src/scene/frame.ts          Moon body-fixed → three (x, z, −y); latLonToThree; bodyDirections(utc)
     src/scene/globe/            GlobeCanvas, MoonGlobe, Lighting (true Sun + earthshine), CameraRig (orbit + GSAP
                                 great-circle flight, view offset right of the panel), SiteMarkers (DOM layer),
                                 MarkerProjector (positions DOM markers each frame), markerRegistry
-    src/features/               header/TopBar, picker/SitePanel + CustomPoint, time/TimeDock
-    src/ui/                     Panel, Button, Field (label, hint, error, icon)
+    src/state/                  + computeStore (horizon, result, window, status), useScenarioCompute (loads horizon,
+                                32-day window anchored to the cursor day − 2 d, recompute near edges), useNow (instant values + countdowns)
+    src/features/               header/TopBar (view switch, Validation), picker/*, time/TimeDock (play 1/6/24 h/s),
+                                timeline/Timeline (clearance curves, Sunlit/Earth/Both bands, drag + keyboard slider),
+                                skychart/SkyChart + paths (terrain ground, tracks split at horizon and at az wrap),
+                                verdict/VerdictPanel + Assumptions, validation/ValidationDialog (110 cases + live JPL)
+    src/app/useShortcuts.ts     ← → 1 h, [ ] 1 day
+    src/ui/                     Panel, Button, Field, Segmented (radio group), useSize (ResizeObserver)
     src/styles/                 tokens.css (all design tokens), base.css (reset, type, themed browser surfaces)
     tests/                      *.spec.ts + fixtures/
     docs/                       these docs
