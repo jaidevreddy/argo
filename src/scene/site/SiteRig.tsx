@@ -38,7 +38,6 @@ export function SiteRig({ sky, eyeY, tileKey }: { sky: SiteSky; eyeY: number; ti
   useEffect(() => {
     skyRef.current = sky
   }, [sky])
-  const first = useRef(true)
 
   function fly(to: { pos: Vector3; target: Vector3 }, from: { pos: Vector3; target: Vector3 } | null, duration: number) {
     const c = controls.current
@@ -81,9 +80,9 @@ export function SiteRig({ sky, eyeY, tileKey }: { sky: SiteSky; eyeY: number; ti
   }
 
   // Arrival: drop in from high above the site (the hand-off from the globe), then settle into orbit.
+  // No run-once guard: StrictMode runs this twice and the first tween is killed by its cleanup,
+  // so the second run must start it again.
   useEffect(() => {
-    if (!first.current) return
-    first.current = false
     const end = orbitPose(skyRef.current)
     if (mode === 'stand') return fly(standPose(skyRef.current, eyeY, facing), null, 0)
     const start = { pos: end.pos.clone().setLength(70).setY(65), target: new Vector3(0, 0, 0) }

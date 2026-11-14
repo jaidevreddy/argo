@@ -51,6 +51,11 @@
   text-wrap: balance;
 }
 
+.night {
+  font-weight: 500;
+  color: var(--text-1);
+}
+
 .warn {
   font-weight: 500;
   color: var(--warn);

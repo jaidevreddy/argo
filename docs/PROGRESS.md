@@ -37,6 +37,7 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 - Never use drei <Html> (React 19 root-unmount errors). Markers are a DOM layer positioned by MarkerProjector.
 - Zustand selectors must return stable values; derive objects with useMemo (see useTarget).
 - Epoch ms are NEGATIVE before 1970 (Apollo). Never use -1 / `< 0` as a "no time" sentinel; use null.
+- Non-polar DEM crops come from `python3 tools/fetch_dem.py` in the USER's Terminal (PDS unreachable from sandboxes).
 - After editing tools/bake.py, re-run it on the Mac sandbox (`python3 tools/bake.py`, ~5 s); tiles stay byte-identical.
 - Chrome javascript_tool output is blocked if it contains the URL query string; don't return location.search.
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.

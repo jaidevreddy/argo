@@ -11,10 +11,10 @@ export interface Horizon {
 }
 
 /** Baked LOLA profile (public/data/horizon/<id>.json) → Horizon. */
-export function terrainHorizon(elDeg: readonly number[], azStepDeg: number): Horizon {
+export function terrainHorizon(elDeg: readonly number[], azStepDeg: number, label = 'Terrain horizon (LOLA)'): Horizon {
   return {
     kind: 'terrain',
-    label: 'Terrain horizon (LOLA)',
+    label,
     azStep: azStepDeg * DEG,
     el: Float32Array.from(elDeg, (d) => d * DEG),
   }

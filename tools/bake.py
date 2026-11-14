@@ -1,12 +1,14 @@
 """Bake per-site horizon profiles and terrain tiles from LOLA.
 
 Usage (from repo root):  python3 tools/bake.py
-Reads   data-raw/ldem_80s_40m.img, data-raw/ldem_75s_240m.img, tools/sites.src.json
+Reads   data-raw/ldem_80s_40m.img, data-raw/ldem_75s_240m.img (sites at or below 80°S),
+        data-raw/crops/<id>_{near,far} from tools/fetch_dem.py (every other site), tools/sites.src.json
 Writes  public/data/sites.json, public/data/horizon/<id>.json, public/data/terrain/<id>.bin (+ .json)
 Math: docs/LOGIC.md (Horizon).
 """
 import json, math, os, sys
 import numpy as np
+from crops import CropDEM
 from lola import R, PolarDEM, destination
 
 RAW, OUT = "data-raw", "public/data"
@@ -60,23 +62,39 @@ def terrain_tile(near, far, lat, lon, h_site):
     return q.astype("<i2"), float(np.nanmin(z)), float(np.nanmax(z))
 
 
+def dems_for(s, polar):
+    """(near, far, horizon source, short resolution label, UI horizon label) or None if no data yet."""
+    if s["lat"] <= TERRAIN_LAT_LIMIT:
+        return (*polar, "LOLA LDEM_80S_40M (0-20 km) + LDEM_75S_240M (20-200 km)", "LOLA 40 m", "Terrain horizon (LOLA)")
+    if not os.path.exists(f"{RAW}/crops/{s['id']}_far.json"):
+        return None
+    near, far = CropDEM(RAW, f"{s['id']}_near"), CropDEM(RAW, f"{s['id']}_far")
+    sldem = near.m["kind"] == "eqc"
+    return (near, far, f"{near.source} (0-20 km) + {far.source} (20-200 km)",
+            "SLDEM2015 59 m" if sldem else "LOLA 60 m",
+            "Terrain horizon (LOLA + Kaguya)" if sldem else "Terrain horizon (LOLA)")
+
+
 def main():
-    near, far = PolarDEM(RAW, "40m"), PolarDEM(RAW, "240m")
+    polar = (PolarDEM(RAW, "40m"), PolarDEM(RAW, "240m"))
     sites = json.load(open("tools/sites.src.json"))
     for sub in ("horizon", "terrain"):
         os.makedirs(f"{OUT}/{sub}", exist_ok=True)
     for s in sites:
-        s["terrain"] = s["lat"] <= TERRAIN_LAT_LIMIT
-        if not s["terrain"]:
+        d = dems_for(s, polar)
+        s["terrain"] = d is not None
+        if d is None:
             s["elevationM"] = None
+            print(f"{s['id']:18s} no DEM crop yet (run tools/fetch_dem.py): ideal sphere horizon")
             continue
+        near, far, source, s["terrainRes"], label = d
         lat, lon = site_rad(s)
         h_site = float(near.height(lat, lon))
         s["elevationM"] = round(h_site, 1)
         prof = horizon_profile(near, far, lat, lon, h_site + MAST_M)
         far_prof = horizon_profile(near, far, lat, lon, h_site + MAST_M, FAR_HORIZON_MIN_M)
         json.dump({"id": s["id"], "azStepDeg": AZ_STEP_DEG, "mastM": MAST_M, "minRangeM": NEAR_MIN_M, "maxRangeKm": FAR_MAX_M / 1000,
-                   "source": "LOLA LDEM_80S_40M (0-20 km) + LDEM_75S_240M (20-200 km)",
+                   "source": source, "label": label,
                    "elDeg": [round(float(v), 3) for v in prof],
                    "farMinRangeM": FAR_HORIZON_MIN_M,
                    "farElDeg": [round(float(v), 3) for v in far_prof]},

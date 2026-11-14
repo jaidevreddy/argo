@@ -26,6 +26,9 @@ export function SiteControls() {
   const sky = useSiteSky(tile && tile.id === id ? tile : null)
 
   const hidden = sky ? 1 - sky.sunThroughFar : 0
+  const sunElDeg = sky ? (sky.sky.sun.el * 180) / Math.PI : 0
+  // Well below the local horizontal it's simply night, not ridges in the way.
+  const night = sunElDeg < -2
 
   return (
     <div className={s.root}>
@@ -54,9 +57,10 @@ export function SiteControls() {
         </span>
       </div>
       <p className={s.caption}>
-        {mode === 'orbit' ? 'Drag to orbit, scroll to zoom.' : 'Drag to look around. Eye at mast height.'} LOLA 40 m terrain, 20 × 20 km, true vertical
-        scale. Shadows from the Sun's true position.
-        {sky && hidden > 0.005 && (
+        {mode === 'orbit' ? 'Drag to orbit, scroll to zoom.' : 'Drag to look around. Eye at mast height.'} {target?.site?.terrainRes ?? 'LOLA 40 m'} terrain, 20 × 20 km, true
+        vertical scale. Shadows from the Sun's true position.
+        {sky && night && <strong className={s.night}> Night: the Sun is {Math.abs(sunElDeg).toFixed(1)}° below the horizon. Earthshine only.</strong>}
+        {sky && !night && hidden > 0.005 && (
           <strong className={s.warn}>
             {hidden > 0.995 ? ' Ridges 10–200 km away hide the Sun from the site.' : ` Ridges 10–200 km away hide ${Math.round(hidden * 100)}% of the Sun.`}
           </strong>

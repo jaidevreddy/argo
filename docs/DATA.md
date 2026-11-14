@@ -12,6 +12,7 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 | public/data/textures/moon_normal_4k.jpg | from ldem_16_uint (tools/textures.py) | 4096×2048 tangent-space normals, OpenGL +Y north, relief ×6 | Globe relief |
 | public/data/textures/earth_2048.jpg | NASA Blue Marble, via three.js examples | 2048×1024 | Earth in the lunar sky |
 | public/data/textures/earth_clouds_1024.png | same | 1024×512 | Earth clouds |
+| data-raw/crops/<id>_{near,far}.f32/.json | tools/fetch_dem.py: HTTP Range reads from PDS SLDEM2015 tiles (512 ppd near, 256 ppd every 4th far) and LOLA LDEM_60S_60M (Chandrayaan-3) | float32 m, row 0 north, ±21 km and ±205 km boxes, 75 MB total | Tiles + horizons for the 13 non-polar sites |
 | tests/fixtures/horizons.json | JPL Horizons API, DE441 | 110 cases | Validation |
 
 ## LOLA polar stereographic (from the .lbl files)
@@ -32,8 +33,12 @@ Raw files live in `data-raw/` (gitignored, ~575 MB). Baked output goes to `publi
 | horizon/<id>.json | `elDeg`: 720 horizon elevations (deg) at 0.5° azimuth steps, 200 m–200 km, 2 m mast. `farElDeg`: same from 10.24 km out (3D view) |
 | terrain/<id>.bin + .json | 512×512 int16 LE, 0.25 m units, 40 m spacing (20.4 km square), row 0 = north, col 0 = west, height above the site's tangent plane (curvature included) |
 
-Terrain sites (≥ 80°S): south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim, malapert-massif, im-2, im-1.
-Everything else uses the ideal sphere horizon. Site list source of truth: `tools/sites.src.json` (each with a source link:
+All 20 sites have terrain. ≥ 80°S: LOLA 40 m + 240 m (south-pole, shackleton-ridge, connecting-ridge, de-gerlache-rim,
+malapert-massif, im-2, im-1). Within ±60°: SLDEM2015 59 m + 474 m (Apollo 11–17, SLIM, Blue Ghost 1, Chang'e 3–6).
+Chandrayaan-3 (69°S): LOLA LDEM_60S_60M 60 m + 480 m. Only custom points outside 80°S use the ideal sphere.
+Re-fetch: `python3 tools/fetch_dem.py [site-id ...]` in the user's Terminal (~10 min for all, skips done sites).
+SLDEM2015 tile maths: row = (maxLat − lat)·ppd − 0.5, col = (lon − westLon)·ppd − 0.5, float32 km above 1737.4 km.
+Spot checks: Apollo 11 −1932 m; Malapert 4818 m (60 m grid) vs 4817 m (40 m grid). Site list source of truth: `tools/sites.src.json` (each with a source link:
 LROC featured images, NSSDC tables, JAXA, an Icarus 2024 ridge-site study).
 
 ## CGI Moon Kit conventions (checked)

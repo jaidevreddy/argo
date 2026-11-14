@@ -28,9 +28,23 @@ Offline: tile shadows + far profile reproduce the full baked horizon to 0.01–0
 - My own unit test expected Earth's pole "up" from (0, 0); from there Earth is overhead and its pole points lunar north. Test fixed, code was right.
 - Lint: hook-value mutation (fade uniform, sky ref) → material per mode, ref synced in an effect.
 
+## Addendum: 3D and terrain horizons for all 20 sites
+
+The user found the 3D tab disabled for 13 of 20 sites. Fixed the same day:
+
+- tools/fetch_dem.py pulls only the needed rows from PDS (HTTP Range, kept-alive connections): SLDEM2015 for the 12 sites
+  within ±60°, LOLA LDEM_60S_60M for Chandrayaan-3. 21,000 requests, ~11 min, 75 MB saved. tools/crops.py reads them.
+- bake.py builds tiles + horizons for every site; horizon JSON now carries its own label and source. Polar tiles unchanged (md5).
+- Landmark checks: Apollo 15 has Hadley Delta to the south (horizon 13.5°) and Hadley Rille 311 m deep to the west;
+  Apollo 17 North Massif +1.5 km to the north; Apollo 15 landing Sun 12.03° (crew landed at ~12°).
+- The non-polar sky charts now use real terrain instead of the ideal sphere (Apollo 15 east horizon 7.4°).
+- Also fixed: night caption said "ridges hide the Sun" when it was just night; earthshine raised to a readable exposure;
+  arrival flight skipped under React StrictMode (run-once guard) → guard removed.
+- Rejected: the SVS 14959 Moon GLB the user suggested. Same colour map as our globe, 78–300 MB, km-scale relief, pinched poles.
+
 ## Skipped / unchecked
 
 - No vertical exaggeration toggle (true scale only).
-- No 3D for non-polar sites or custom points (no 40 m tile baked there). Tab is disabled with a reason.
+- No 3D for custom points (no tile baked on the fly). Tab is disabled with a reason.
 - Far-ridge dimming applied uniformly across the tile (shortcut noted in SunLight.tsx).
 - Production-build FPS and integrated-GPU FPS not measured yet. Bundle still one chunk (Phase 7).

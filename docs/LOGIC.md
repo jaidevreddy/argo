@@ -35,8 +35,10 @@ Bake: `tools/bake.py` (1.5 s for 7 sites). Tests: `tools/test_bake.py` (syntheti
 | Site | Horizon | UI label |
 |---|---|---|
 | Curated, ≥ 80°S | Baked LOLA profile | Terrain horizon (LOLA) |
+| Curated, within ±60° | Baked SLDEM2015 profile (59 m to 20 km, 474 m to 200 km) | Terrain horizon (LOLA + Kaguya) |
+| Chandrayaan-3 | Baked LOLA 60 m / 480 m profile | Terrain horizon (LOLA) |
 | Custom, ≥ 80°S | Computed from the 240 m grid | Terrain horizon (LOLA, coarse) |
-| Elsewhere | Sphere + mast dip, −acos(R/(R+h)) | Ideal sphere horizon |
+| Custom, elsewhere | Sphere + mast dip, −acos(R/(R+h)) | Ideal sphere horizon |
 
 ## Visibility and metrics (built, Phase 2)
 

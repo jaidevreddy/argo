@@ -7,7 +7,9 @@ import { fitShadowCamera } from './shadowFit'
 import type { SiteSky } from './useSiteSky'
 
 const SUN_INTENSITY = 3.2
-const EARTHSHINE = 0.06 // full Earth; scaled by Earth's lit fraction
+// Full Earth; scaled by Earth's lit fraction. Physically ~1e-4 of sunlight; this is an eye-adapted exposure
+// (night terrain must stay readable) and still ~20x dimmer than the Sun on screen.
+const EARTHSHINE = 0.16
 
 /**
  * The Sun as one shadow-casting directional light on the true topocentric vector.

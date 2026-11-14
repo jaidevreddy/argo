@@ -16,7 +16,7 @@ import s from './SiteCanvas.module.css'
 
 type Load = { id: string; tile: TerrainTile } | { id: string; error: string }
 
-/** 3D site view: the LOLA tile around the landing site, the true Sun with shadows, Earth at its true size and phase. */
+/** 3D site view: the baked DEM tile around the landing site, the true Sun with shadows, Earth at its true size and phase. */
 export function SiteCanvas() {
   const target = useTarget()
   const id = target?.site?.terrain ? target.site.id : null
@@ -82,7 +82,7 @@ export function SiteCanvas() {
       </div>
       {!tile && (
         <p className={s.note} role="status">
-          {load && 'error' in load ? `Terrain could not load: ${load.error}` : 'Loading LOLA terrain'}
+          {load && 'error' in load ? `Terrain could not load: ${load.error}` : 'Loading terrain'}
         </p>
       )}
     </div>

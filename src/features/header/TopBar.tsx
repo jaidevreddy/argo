@@ -43,7 +43,9 @@ export function TopBar() {
               value: 'site',
               label: '3D site',
               disabled: !t?.site?.terrain,
-              title: t?.site?.terrain ? 'LOLA terrain around the site, lit by the true Sun' : '3D terrain is baked for the polar sites (LOLA 40 m covers 80–90°S)',
+              title: t?.site?.terrain
+                ? `${t.site.terrainRes ?? 'LOLA'} terrain around the site, lit by the true Sun`
+                : 'No terrain is baked for custom points yet; pick a listed site for 3D',
             },
           ]}
         />

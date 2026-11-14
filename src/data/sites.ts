@@ -12,6 +12,8 @@ export interface SiteRecord {
   date: string // ISO UTC, landing time or a default planning date
   source: string
   terrain: boolean
+  /** Short DEM label for the 3D caption, e.g. "LOLA 40 m", "SLDEM2015 59 m". */
+  terrainRes?: string
   elevationM: number | null
 }
 
@@ -28,6 +30,6 @@ export async function loadHorizon(site: Pick<SiteRecord, 'id' | 'terrain'>, mast
   if (!site.terrain) return sphereHorizon(mastM)
   const res = await fetch(`${base}/horizon/${site.id}.json`)
   if (!res.ok) throw new Error(`Could not load horizon for ${site.id} (${res.status})`)
-  const h = (await res.json()) as { elDeg: number[]; azStepDeg: number }
-  return terrainHorizon(h.elDeg, h.azStepDeg)
+  const h = (await res.json()) as { elDeg: number[]; azStepDeg: number; label?: string }
+  return terrainHorizon(h.elDeg, h.azStepDeg, h.label)
 }
