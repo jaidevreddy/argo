@@ -2,7 +2,7 @@ import { ExternalLink, ShieldCheck } from 'lucide-react'
 import { useState } from 'react'
 import { fmtLat, fmtLon, useScenario, useTarget, type View } from '../../state/scenarioStore'
 import { Button } from '../../ui/Button'
-import { Logo } from '../../ui/Logo'
+import { Wordmark } from '../../ui/Logo'
 import { Segmented } from '../../ui/Segmented'
 import { ValidationDialog } from '../validation/ValidationDialog'
 import s from './TopBar.module.css'
@@ -18,8 +18,7 @@ export function TopBar() {
   return (
     <header className={s.bar}>
       <h1 className={s.mark}>
-        <Logo size={22} />
-        Argo
+        <Wordmark height={15} title="Argo" />
       </h1>
       {t && (
         <div className={s.place}>
@@ -55,8 +54,8 @@ export function TopBar() {
             },
           ]}
         />
-        <Button size="sm" onClick={() => setValidating(true)}>
-          <ShieldCheck size={14} /> Validation
+        <Button size="sm" onClick={() => setValidating(true)} aria-label="Validation">
+          <ShieldCheck size={14} aria-hidden="true" /> <span className={s.vText}>Validation</span>
         </Button>
       </div>
       <ValidationDialog open={validating} onClose={() => setValidating(false)} />

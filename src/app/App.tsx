@@ -54,7 +54,7 @@ export function App() {
 
   return (
     <div className={s.app}>
-      {site3d ? <SiteCanvas /> : <GlobeCanvas />}
+      <div className={s.stage}>{site3d ? <SiteCanvas /> : <GlobeCanvas />}</div>
       <div className={s.overlay}>
         <div className={s.top}>
           <TopBar />

@@ -72,7 +72,11 @@ export function SitePanel() {
         })}
       </div>
 
-      <CustomPoint />
+      {target.kind === 'custom' ? (
+        <CustomPoint key={`c${target.lat},${target.lon}`} lat0={String(target.lat)} lon0={String(target.lon)} />
+      ) : (
+        <CustomPoint key={`s${target.id}`} />
+      )}
     </Panel>
   )
 }

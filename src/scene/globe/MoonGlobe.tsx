@@ -1,7 +1,8 @@
 import { useTexture } from '@react-three/drei'
-import { useThree } from '@react-three/fiber'
+import { useThree, type ThreeEvent } from '@react-three/fiber'
 import { useMemo } from 'react'
 import { MeshStandardMaterial, SRGBColorSpace, type Texture } from 'three'
+import { useScenario } from '../../state/scenarioStore'
 
 const base = `${import.meta.env.BASE_URL}data/textures`
 const URLS = [
@@ -74,8 +75,19 @@ export function MoonGlobe() {
     [tex],
   )
 
+  const picking = useScenario((st) => st.picking)
+  const setCustom = useScenario((st) => st.setCustom)
+  const pick = (e: ThreeEvent<MouseEvent>) => {
+    if (!picking || e.delta > 6) return // a drag to rotate is not a pick
+    e.stopPropagation()
+    const p = e.point.clone().normalize() // identity model matrix: world = body frame (see frame.ts)
+    const lat = (Math.asin(p.y) * 180) / Math.PI
+    const lon = (Math.atan2(-p.z, p.x) * 180) / Math.PI
+    setCustom(Math.round(lat * 1000) / 1000, Math.round(lon * 1000) / 1000)
+  }
+
   return (
-    <mesh material={material}>
+    <mesh material={material} onClick={pick}>
       <sphereGeometry args={[1, 256, 128]} />
     </mesh>
   )

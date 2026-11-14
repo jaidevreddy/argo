@@ -205,3 +205,14 @@
   gap: 6px;
   line-height: 1.45;
 }
+
+@media (max-width: 900px) {
+  .panel {
+    max-height: none; /* the page scrolls on phones, not the card */
+    overflow: visible;
+  }
+
+  .sticky {
+    position: static;
+  }
+}

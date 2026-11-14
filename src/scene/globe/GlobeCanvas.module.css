@@ -17,3 +17,49 @@
   font-size: var(--fs-13);
   white-space: nowrap;
 }
+
+.picking,
+.picking:active {
+  cursor: crosshair;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  top: var(--s-3);
+  translate: -50% 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 4px 4px 4px 14px;
+  border-radius: 999px;
+  background: var(--panel-bg);
+  backdrop-filter: var(--panel-blur);
+  -webkit-backdrop-filter: var(--panel-blur);
+  border: 1px solid var(--hairline-strong);
+  font-size: var(--fs-13);
+  white-space: nowrap;
+  animation: hint-in var(--t-med) var(--ease-out);
+}
+
+.cancel {
+  height: 26px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-1);
+  font-size: var(--fs-12);
+}
+
+.cancel:hover {
+  background: var(--surface-3);
+}
+
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    translate: -50% -6px;
+  }
+}

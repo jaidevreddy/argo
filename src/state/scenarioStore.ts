@@ -39,6 +39,9 @@ interface ScenarioState {
   view: View
   /** Up to three landings side by side (Compare view). */
   compare: CompareItem[]
+  /** Waiting for a click on the globe to drop a custom point (not in the URL). */
+  picking: boolean
+  setPicking: (on: boolean) => void
   setSites: (sites: SiteRecord[]) => void
   setSitesError: () => void
   selectSite: (id: string, opts?: { keepTime?: boolean }) => void
@@ -65,13 +68,15 @@ export const useScenario = create<ScenarioState>()((set, get) => ({
   maskDeg: 0,
   view: 'globe',
   compare: [],
+  picking: false,
+  setPicking: (on) => set(on ? { picking: true, view: 'globe' } : { picking: false }),
   setSites: (sites) => set({ sites, sitesStatus: 'ready' }),
   setSitesError: () => set({ sitesStatus: 'error' }),
   selectSite: (id, opts) => {
     const site = get().sites.find((s) => s.id === id)
     set({ target: { kind: 'site', id }, ...(site && !opts?.keepTime ? { utcMs: Date.parse(site.date) } : {}) })
   },
-  setCustom: (lat, lon) => set({ target: { kind: 'custom', lat, lon } }),
+  setCustom: (lat, lon) => set({ target: { kind: 'custom', lat, lon }, picking: false }),
   setTime: (utcMs) => set({ utcMs }),
   shiftDays: (days) => set((s) => ({ utcMs: s.utcMs + days * DAY })),
   patch: (p) => set(p),

@@ -57,3 +57,28 @@
 .spacer {
   flex: 1;
 }
+
+@media (max-width: 900px) {
+  .bar {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .bar > * {
+    margin-bottom: var(--s-2);
+  }
+
+  .sep,
+  .spacer {
+    display: none;
+  }
+
+  /* row 1: ‹ date ›   row 2: play, speed, landing time */
+  .bar > :nth-child(4) { order: 1; }
+  .bar > :nth-child(5) { order: 2; }
+  .bar > :nth-child(6) { order: 3; }
+  .bar::after { content: ''; order: 3; flex-basis: 100%; } /* line break */
+  .bar > :nth-child(1) { order: 4; }
+  .bar > :nth-child(2) { order: 5; }
+  .bar > :nth-child(8) { order: 6; margin-left: auto; }
+}

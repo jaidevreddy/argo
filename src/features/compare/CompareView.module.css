@@ -512,3 +512,35 @@
   gap: var(--s-2);
   flex-shrink: 0;
 }
+
+@media (max-width: 900px) {
+  .panel {
+    height: auto;
+    min-height: 52svh;
+    pointer-events: auto;
+  }
+
+  .head {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 560px) {
+  .days {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .headActions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  .table {
+    min-width: 520px; /* three columns stay readable; the body scrolls sideways */
+  }
+
+  .body {
+    overflow-x: auto;
+  }
+}

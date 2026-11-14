@@ -51,12 +51,10 @@ button {
   cursor: pointer;
 }
 
-/* numbers: monospace with tabular figures so values do not jitter while scrubbing */
+/* numbers: tabular figures so values do not jitter while scrubbing */
 .num {
   font-family: var(--font-num);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'zero' 0;
-  letter-spacing: -0.01em;
 }
 
 /* browser surfaces carry the design */

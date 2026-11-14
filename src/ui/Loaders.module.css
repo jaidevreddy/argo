@@ -30,13 +30,12 @@
 .word {
   position: absolute;
   left: 50%;
-  top: calc(50% + 62px);
+  top: calc(50% + 28px);
   translate: -50% 0;
-  display: flex;
-  gap: 1px;
-  font-size: var(--fs-28);
-  font-weight: 650;
-  letter-spacing: -0.02em;
+  white-space: nowrap;
+  font-size: var(--fs-13);
+  letter-spacing: 0.04em;
+  color: var(--text-2);
 }
 
 .word > span {

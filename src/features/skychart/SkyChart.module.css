@@ -176,3 +176,15 @@
   color: var(--text-1);
   pointer-events: none;
 }
+
+@media (max-width: 900px) {
+  .panel {
+    height: auto;
+    min-height: 52svh;
+    pointer-events: auto;
+  }
+
+  .head {
+    flex-wrap: wrap;
+  }
+}

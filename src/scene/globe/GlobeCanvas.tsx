@@ -1,6 +1,8 @@
 import { useProgress } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
+import { MapPin } from 'lucide-react'
+import { useScenario } from '../../state/scenarioStore'
 import { ACESFilmicToneMapping } from 'three'
 import { CameraRig } from './CameraRig'
 import { Lighting } from './Lighting'
@@ -16,9 +18,30 @@ function LoadingNote() {
   return <AreaLoader label="Loading Moon imagery" progress={progress} />
 }
 
-export function GlobeCanvas() {
+function PickHint() {
+  const picking = useScenario((st) => st.picking)
+  const setPicking = useScenario((st) => st.setPicking)
+  useEffect(() => {
+    if (!picking) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPicking(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [picking, setPicking])
+  if (!picking) return null
   return (
-    <div className={s.stage}>
+    <div className={s.hint} role="status">
+      <MapPin size={14} aria-hidden="true" /> Tap the Moon to drop a point
+      <button type="button" className={s.cancel} onClick={() => setPicking(false)}>
+        Cancel
+      </button>
+    </div>
+  )
+}
+
+export function GlobeCanvas() {
+  const picking = useScenario((st) => st.picking)
+  return (
+    <div className={`${s.stage} ${picking ? s.picking : ''}`}>
       <Canvas
         frameloop="demand"
         dpr={[1, 2]}
@@ -35,6 +58,7 @@ export function GlobeCanvas() {
         <CameraRig />
       </Canvas>
       <SiteMarkers />
+      <PickHint />
       <LoadingNote />
     </div>
   )

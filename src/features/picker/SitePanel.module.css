@@ -97,3 +97,9 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--s-2);
 }
+
+.customActions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-2);
+}

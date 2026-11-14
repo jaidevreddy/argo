@@ -1,12 +1,12 @@
 import gsap from 'gsap'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { LaunchEngine } from './boot/launchEngine'
-import { Logo } from './Logo'
+import { Wordmark } from './Logo'
 import s from './Loaders.module.css'
 
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const LOGO_PX = 112
-const LOGO_DY = -28 // the mark sits a little above centre, the wordmark below it
+const LOGO_PX = 44 // wordmark cap height
+const LOGO_DY = -16 // the wordmark sits a little above centre, the tagline below it
 const SEEN = 'argo-boot-seen'
 
 /**
@@ -72,13 +72,11 @@ export function BootLoader({ ready, label, progress, onDone }: { ready: boolean;
   return (
     <div ref={root} className={s.boot} role="status" aria-live="polite" aria-label={ready ? 'Ready' : label}>
       <canvas ref={canvas} className={s.canvas} aria-hidden="true" />
-      <div className={s.mark} data-mark style={{ marginTop: LOGO_DY - (0.4 * LOGO_PX) / 24 }}>
-        <Logo size={LOGO_PX} />
+      <div className={s.mark} data-mark style={{ marginTop: LOGO_DY }}>
+        <Wordmark height={LOGO_PX} title="Argo" />
       </div>
       <div className={s.word} data-word aria-hidden="true">
-        {'Argo'.split('').map((c, i) => (
-          <span key={i}>{c}</span>
-        ))}
+        <span>Lunar landing site navigator</span>
       </div>
       <div className={s.status} data-status>
         <span className={s.label}>

@@ -8,10 +8,10 @@ the terrain and the globe are the only imagery.
 - Surfaces: background ~#050506 to #0B0B10, panels 4–8% white + hairline border, text 92% / 60% white.
 - Body colours mean one thing everywhere: Sun = warm amber, Earth = blue. Each also has a distinct
   shape/line style so colour is never the only cue.
-- Type: Inter (UI), JetBrains Mono for numbers only, tabular figures (no jitter while scrubbing).
-  Self-hosted via @fontsource-variable. No SF Pro (licence does not cover web).
+- Type: SF Pro through the system font stack on Apple devices (nothing bundled, so no licence issue), Inter
+  Variable elsewhere; tabular figures for numbers (no jitter while scrubbing). See Brand and loading.
 - Layout: 3D/sky fills the screen, panels float over it (blur only where a panel sits over 3D).
-  Verdict bar top, timeline dock bottom, scenario rail left. 1280 px primary; stacked below 768 px.
+  Verdict bar top, timeline dock bottom, scenario rail left. 1280 px primary; one scrolling column below 900 px.
 - Motion: 200–400 ms ease-out, only to explain state change. One authored moment: GSAP camera flight
   globe → site. Honour prefers-reduced-motion.
 - Keyboard: arrows step time, [ ] step days, 1–3 switch scenarios. Every number has a tooltip saying how it was computed.
@@ -43,22 +43,27 @@ the terrain and the globe are the only imagery.
 - No layout shift: controls that come and go are disabled instead (Landing time button).
 - Top scrim gradient keeps the top bar legible over the bright limb.
 
-## Brand and loading (Phase 7, second pass)
+## Brand and loading (Phase 7, final)
 
-- Logo (src/ui/logoPath.ts, Logo.tsx, favicon): a soft filled "A" whose counter is an arch, with a half Moon rising
-  in it. Original; deliberately not a pure arched-base A (too close to a user reference). currentColor, 16 px up.
-- Boot (src/ui/boot/launchEngine.ts, Loaders.tsx): a small rocket drawn in 0/1 glyphs on a canvas, flying in along a
-  GSAP MotionPath curve over dashed orbits, amber exhaust digits cooling to white, hovering while loading; on ready
-  every digit flies (expo.inOut, random stagger) into the mark, then the crisp mark glows in and "Argo" rises letter by
-  letter. Glow = CSS drop-shadow on the canvas (a per-frame canvas blur froze the main thread). DPR capped at 1.5.
-  Full sequence once per tab session (flag set only when it completes: StrictMode runs effects twice); reloads fade.
-  AreaLoader = the same rocket, small, looping where imagery/terrain loads. Reduced motion: still frame, plain fade.
-- Segmented controls: fully rounded, with a sliding pill (340 ms, cubic-bezier(0.3, 0.9, 0.25, 1)).
-- Date and time: custom UTC picker (src/ui/DateTimePicker.tsx): Monday-first month grid, round day cells, month slide
-  animation, month/year view (jump to 1969), HH:MM field with arrow-key stepping, Now / Done, amber dot on the
-  site's landing date, Esc and outside-click close. Replaces the native datetime-local.
-- Fields: one soft ring around the whole box on focus; the inner input draws none (was a double outline).
-- Verdict panel fills its column; new "Coming up" list (next 4 rises/sets, UTC, click to jump); controls pinned bottom.
+- Wordmark (src/ui/logoPath.ts, Logo.tsx): "ARGO" outlined from Cyberwave 2000 by HipFonts (free for personal use;
+  credited in the references). Only the outlines ship; the font file stays in data-raw/ (gitignored).
+  Favicon = its "A" glyph. Top bar at 15 px cap height.
+- Type: SF Pro via the system stack (-apple-system), so Apple devices render it with nothing to download or license;
+  Inter Variable elsewhere. Numbers use the same face with tabular figures. JetBrains Mono dropped.
+- Boot (src/ui/boot/launchEngine.ts, Loaders.tsx): a small rocket in 0/1 glyphs flies in on a GSAP MotionPath over
+  dashed orbits, hovers while loading, then every digit streams into the wordmark (44 px); the crisp wordmark glows in
+  with the tagline. CSS drop-shadow glow, DPR ≤ 1.5, full sequence once per tab session, reduced-motion = still frame.
+- Shape (Apple Liquid Glass rules, WWDC25): every button, input and segmented control is a capsule (radius = half the
+  height). Panels 22 px; anything inside a panel uses panel radius minus its inset (concentric), never a pinched
+  corner. One tinted primary per screen (white fill): Go to point, Add current scenario, Verify with JPL, Done.
+- Verdict card: fits its content; "Coming up" removed. The title and power/link badge stay pinned (sticky, glass)
+  while the card scrolls.
+- Custom point: type coordinates or "Pin on globe" (tap the Moon; Esc or Cancel). The form remounts per target, so a
+  pin fills the fields and moving elsewhere clears stale "Required" errors; errors also clear on the next edit.
+- Layout: 12 px page gutters and gaps. Under 900 px it becomes one scrolling page: header (wordmark + Validation,
+  full-width view tabs, place), the view (globe / 3D / chart / compare, 52svh), time dock (‹ date › then playback),
+  verdict, site list. The canvas is isolated so globe labels never draw over the panels.
+- Date and time: custom UTC picker (src/ui/DateTimePicker.tsx), round day cells, month slide, landing-date dot.
 - Compare: labelled Remove per column, Clear all, "Replace oldest" when the list is full.
 
 ## Globe poles (fix before Phase 7)

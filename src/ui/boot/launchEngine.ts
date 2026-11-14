@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
-import { LOGO_A, LOGO_CENTER, LOGO_MOON } from '../logoPath'
+import { WORDMARK, WORDMARK_H, WORDMARK_W } from '../logoPath'
 
 gsap.registerPlugin(MotionPathPlugin)
 
@@ -19,7 +19,7 @@ export interface LaunchOptions {
   mode: 'boot' | 'loop'
   rocketPx: number // rocket height on screen
   cell: number // glyph grid, px
-  logoPx?: number // mark size for the boot outro
+  logoPx?: number // wordmark cap height for the boot outro
   logoDy?: number // logo centre offset from the canvas centre, px
   reducedMotion?: boolean
 }
@@ -107,8 +107,8 @@ export class LaunchEngine {
     const rocket = sample(ROCKET, s, 0, 0, cell, 60 * s + cell * 2, ROCKET_H * s + cell * 2)
     let logo: { x: number; y: number }[] = []
     if (this.o.mode === 'boot' && this.o.logoPx) {
-      const ls = this.o.logoPx / 24
-      logo = sample(LOGO_A + LOGO_MOON, ls, LOGO_CENTER.x, LOGO_CENTER.y, cell, this.o.logoPx + cell * 2, this.o.logoPx + cell * 2)
+      const ls = this.o.logoPx / WORDMARK_H
+      logo = sample(WORDMARK, ls, WORDMARK_W / 2, WORDMARK_H / 2, cell, WORDMARK_W * ls + cell * 2, this.o.logoPx + cell * 2)
     }
     const n = Math.max(rocket.length, logo.length)
     const cx = this.w / 2
@@ -233,7 +233,7 @@ export class LaunchEngine {
     }
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    const font = `600 ${Math.round(cell * 1.15)}px "JetBrains Mono Variable", ui-monospace, monospace`
+    const font = `600 ${Math.round(cell * 1.15)}px ui-monospace, "SF Mono", Menlo, monospace`
     ctx.font = font
     for (const sp of this.sparks) {
       sp.x += sp.vx
