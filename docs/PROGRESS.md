@@ -12,8 +12,8 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 | 4 Planner views | Done | [phases/phase-4.md](phases/phase-4.md) |
 | 5 3D site view | Done | [phases/phase-5.md](phases/phase-5.md) |
 | 6 Compare + nudge | Done | [phases/phase-6.md](phases/phase-6.md) |
-| 7 Polish | Next | |
-| 8 Submit | Not started | |
+| 7 Polish | Done | [phases/phase-7.md](phases/phase-7.md) |
+| 8 Submit | Next | |
 
 ## Decisions taken
 
@@ -44,10 +44,11 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
 - After editing tools/bake.py, re-run it on the Mac sandbox (`python3 tools/bake.py`, ~5 s); tiles stay byte-identical.
 - Chrome javascript_tool output is blocked if it contains the URL query string; don't return location.search.
 - Earth/Moon Blue Marble pages on visibleearth/eoimages now redirect; Earth texture came from three.js repo.
+- Production smoke test: `vite preview` in the cloud mirror + playwright-core driving /usr/bin/google-chrome
+  (swiftshader). The mirror needs public/data/textures copied from the Mac or the boot never finishes.
+- Mac folder name uses a curly apostrophe (Jaidev’s); device paths with a straight one are rejected.
 
 ## Next step
 
-Phase 7 polish: rendering pass on the 3D view (lunar reflectance, crisper tone mapping, labelled fine detail),
-impeccable critique → audit → polish, a11y (table view for the sky chart, focus order, contrast), bundle split
-(1.37 MB main chunk), mobile layout, humanizer pass on all copy. Then Phase 8: 30 s video, project page, references,
-AI disclosure, submit by 9 PM Sunday.
+Phase 8: deploy, 30 s demo video, Space Apps project page (summary, how it works, data sources, references incl.
+HipFonts, AI disclosure), submit by 9 PM IST Sunday 15 Nov (hard deadline 11:59 PM).

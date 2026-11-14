@@ -36,7 +36,7 @@ export function SiteCanvas() {
         <color attach="background" args={['#050506']} />
         {tile && sky && far && (
           <>
-            <Terrain tile={tile} fade={!stand} />
+            <Terrain tile={tile} fade={!stand} sunDir={sky.sunDir} />
             <SunLight sky={sky} tile={tile} />
             {!stand && <Lander at={center} sunDir={sky.sunDir} earthDir={sky.earthDir} />}
             {stand && <FarRidges far={far} center={center} eyeY={eyeY} rot={sky.northRot} sunDir={sky.sunDir} />}

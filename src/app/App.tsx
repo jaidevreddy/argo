@@ -1,21 +1,23 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { loadSites } from '../data/sites'
 import { TopBar } from '../features/header/TopBar'
 import { SitePanel } from '../features/picker/SitePanel'
-import { SkyChart } from '../features/skychart/SkyChart'
 import { TimeDock } from '../features/time/TimeDock'
 import { VerdictPanel } from '../features/verdict/VerdictPanel'
 import { GlobeCanvas } from '../scene/globe/GlobeCanvas'
-import { SiteCanvas } from '../scene/site/SiteCanvas'
-import { SiteControls } from '../features/site/SiteControls'
-import { CompareView } from '../features/compare/CompareView'
 import { DEFAULT_SITE_ID, useScenario, useTarget } from '../state/scenarioStore'
 import { useScenarioCompute } from '../state/useScenarioCompute'
 import { startUrlSync } from '../state/urlSync'
 import { useShortcuts } from './useShortcuts'
 import { useBoot } from './useBoot'
-import { BootLoader } from '../ui/Loaders'
+import { AreaLoader, BootLoader } from '../ui/Loaders'
 import s from './App.module.css'
+
+// Views behind a tab load on first use; the globe, panels and dock ship in the first bundle.
+const SkyChart = lazy(() => import('../features/skychart/SkyChart').then((m) => ({ default: m.SkyChart })))
+const SiteCanvas = lazy(() => import('../scene/site/SiteCanvas').then((m) => ({ default: m.SiteCanvas })))
+const SiteControls = lazy(() => import('../features/site/SiteControls').then((m) => ({ default: m.SiteControls })))
+const CompareView = lazy(() => import('../features/compare/CompareView').then((m) => ({ default: m.CompareView })))
 
 export function App() {
   useScenarioCompute()
@@ -54,7 +56,15 @@ export function App() {
 
   return (
     <div className={s.app}>
-      <div className={s.stage}>{site3d ? <SiteCanvas /> : <GlobeCanvas />}</div>
+      <div className={s.stage}>
+        {site3d ? (
+          <Suspense fallback={<AreaLoader label="Loading 3D terrain" />}>
+            <SiteCanvas />
+          </Suspense>
+        ) : (
+          <GlobeCanvas />
+        )}
+      </div>
       <div className={s.overlay}>
         <div className={s.top}>
           <TopBar />
@@ -64,17 +74,23 @@ export function App() {
         </div>
         {view === 'sky' && (
           <div className={s.center}>
-            <SkyChart />
+            <Suspense fallback={null}>
+              <SkyChart />
+            </Suspense>
           </div>
         )}
         {site3d && (
           <div className={s.center}>
-            <SiteControls />
+            <Suspense fallback={null}>
+              <SiteControls />
+            </Suspense>
           </div>
         )}
         {view === 'compare' && (
           <div className={s.center}>
-            <CompareView />
+            <Suspense fallback={null}>
+              <CompareView />
+            </Suspense>
           </div>
         )}
         <div className={s.right}>
