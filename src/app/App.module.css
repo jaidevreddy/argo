@@ -86,7 +86,8 @@
   .app {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(52svh, auto) auto auto auto;
+    /* max-content, not auto: in a fixed-height scroller auto rows may shrink below their content and overlap */
+    grid-template-rows: max-content minmax(52svh, max-content) max-content max-content max-content;
     gap: var(--s-3);
     padding: var(--s-2) var(--s-3) calc(var(--s-4) + env(safe-area-inset-bottom));
     overflow-x: hidden;
@@ -105,6 +106,7 @@
   .overlay > * {
     pointer-events: auto;
     min-width: 0;
+    min-height: auto;
   }
 
   .stage {
@@ -119,9 +121,19 @@
     z-index: 0;
   }
 
+  /* header, view tabs and place name stay pinned while the page scrolls */
   .top {
     grid-row: 1;
     grid-column: 1;
+    position: sticky;
+    top: calc(-1 * var(--s-2)); /* sticks at the very top, over the page's own top padding */
+    z-index: 5;
+    margin: calc(-1 * var(--s-2)) calc(-1 * var(--s-3)) 0;
+    padding: var(--s-2) var(--s-3) var(--s-2);
+    background: rgb(5 5 6 / 0.82);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid var(--hairline);
   }
 
   .center {

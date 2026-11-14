@@ -134,6 +134,13 @@ export class LaunchEngine {
       return
     }
 
+    if (this.o.mode === 'loop') {
+      // In-place loader: no fly-in, no orbits. The rocket holds the centre and flies on the spot while
+      // binary "stars" stream past it, until whatever it waits for has loaded.
+      this.tl = gsap.timeline({ onComplete: () => this.startHover(home) }).fromTo(this.rocket, { alpha: 0, rotation: -90 }, { alpha: 1, duration: 0.35 })
+      return
+    }
+
     const tl = gsap.timeline({ onComplete: () => this.startHover(home) })
     tl.to(this.scene, { orbit: 1, duration: 1.1, ease: 'power2.out' }, 0)
     tl.fromTo(this.rocket, { alpha: 0 }, { alpha: 1, duration: 0.35 }, 0.15)
@@ -219,6 +226,7 @@ export class LaunchEngine {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     ctx.clearRect(0, 0, w, h)
     this.drawOrbits(ctx)
+    if (this.o.mode === 'loop') this.drawStreaks(ctx)
 
     // exhaust: digits shed from both nozzles, drifting back along the heading
     if (this.rocket.alpha > 0.5 && this.scene.thrust > 0.05 && !this.scene.morph) {
@@ -268,6 +276,26 @@ export class LaunchEngine {
     }
 
     // glow: a CSS drop-shadow on the canvas element (GPU); a per-frame canvas blur stalls the main thread
+  }
+
+  private streaks: { x: number; y: number; v: number; ch: string; a: number }[] = []
+
+  /** Digits sliding down past the rocket: it reads as climbing without leaving the centre. */
+  private drawStreaks(ctx: CanvasRenderingContext2D) {
+    const { w, h } = this
+    if (this.rocket.alpha > 0.2 && Math.random() < 0.55) {
+      this.streaks.push({ x: Math.random() * w, y: -8, v: 1.6 + Math.random() * 2.6, ch: bit(), a: 0.12 + Math.random() * 0.3 })
+    }
+    ctx.font = `500 ${Math.round(this.o.cell * 1.1)}px ui-monospace, "SF Mono", Menlo, monospace`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    for (const s of this.streaks) {
+      s.y += s.v
+      const fade = Math.min(1, s.y / 30, (h - s.y) / 40) // soft in at the top, out at the bottom
+      ctx.fillStyle = `rgba(255,255,255,${Math.max(0, fade) * s.a * this.rocket.alpha})`
+      ctx.fillText(s.ch, s.x, s.y)
+    }
+    this.streaks = this.streaks.filter((s) => s.y < h + 8)
   }
 
   private drawOrbits(ctx: CanvasRenderingContext2D) {

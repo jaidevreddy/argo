@@ -96,16 +96,12 @@ export function AreaLoader({ label, progress = null }: { label: string; progress
   const canvas = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     if (!canvas.current) return
-    const e = new LaunchEngine(canvas.current, { mode: 'loop', rocketPx: 54, cell: 4, reducedMotion: reduced() })
+    const e = new LaunchEngine(canvas.current, { mode: 'loop', rocketPx: 44, cell: 4, reducedMotion: reduced() })
     return () => e.destroy()
   }, [])
   return (
-    <div className={s.area} role="status">
+    <div className={s.area} role="status" aria-label={progress !== null ? `${label} ${Math.round(progress)}%` : label}>
       <canvas ref={canvas} className={s.areaCanvas} aria-hidden="true" />
-      <p className={s.areaLabel}>
-        {label}
-        {progress !== null && <span className="num"> {Math.round(progress)}%</span>}
-      </p>
     </div>
   )
 }
