@@ -1,0 +1,996 @@
+{
+ "source": "JPL Horizons API, DE441, CENTER='coord@301' (MEAN_ME frame), QUANTITIES='4', airless, observer altitude 0 km",
+ "retrieved": "2026-11-14",
+ "cases": [
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 32.520768768,
+   "elDeg": 1.430067207
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 224.637599543,
+   "elDeg": -0.482295587
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 53.885103181,
+   "elDeg": -1.509123192
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 242.017558587,
+   "elDeg": -0.433455735
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 70.994599237,
+   "elDeg": 1.361003761
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 263.113923095,
+   "elDeg": 1.00192429
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 358.720937772,
+   "elDeg": 6.382390169
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 354.773823351,
+   "elDeg": -4.024381421
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 5.508488843,
+   "elDeg": -4.642832109
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 357.120974519,
+   "elDeg": 6.493174845
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 355.774513807,
+   "elDeg": -2.075455759
+  },
+  {
+   "site": "South pole",
+   "latDeg": -89.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 7.184251919,
+   "elDeg": -6.149074683
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 262.5081,
+   "elDeg": 1.2806
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 94.63331,
+   "elDeg": -0.45154
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 283.90004,
+   "elDeg": -1.448
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 112.01305,
+   "elDeg": -0.57396
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 300.98147,
+   "elDeg": 1.58586
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 133.12105,
+   "elDeg": 0.67216
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 228.67912,
+   "elDeg": 5.95219
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 224.79814,
+   "elDeg": -4.47869
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 235.54265,
+   "elDeg": -5.02525
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 227.07988,
+   "elDeg": 6.05272
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 225.78741,
+   "elDeg": -2.52381
+  },
+  {
+   "site": "Shackleton rim region",
+   "latDeg": -89.5,
+   "lonDeg": 130,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 237.2307,
+   "elDeg": -6.5189
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 32.63808,
+   "elDeg": 4.80105
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 224.73114,
+   "elDeg": -3.32683
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 53.86654,
+   "elDeg": 0.84965
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 242.10212,
+   "elDeg": -2.30825
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 71.1275,
+   "elDeg": 2.65972
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 263.0611,
+   "elDeg": 0.52032
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 358.70727,
+   "elDeg": 10.38419
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 354.78514,
+   "elDeg": -0.04159
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 5.4924,
+   "elDeg": -0.66204
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 357.08984,
+   "elDeg": 10.49087
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 355.77365,
+   "elDeg": 1.91365
+  },
+  {
+   "site": "Malapert region",
+   "latDeg": -85.9,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 7.15011,
+   "elDeg": -2.18158
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 0.2161,
+   "elDeg": 21.9727
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 193.1685,
+   "elDeg": -20.5411
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 22.6721,
+   "elDeg": 17.5708
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 211.433,
+   "elDeg": -18.1989
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 40.8561,
+   "elDeg": 17.257
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 232.352,
+   "elDeg": -11.8923
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 323.1764,
+   "elDeg": 23.2232
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 321.4913,
+   "elDeg": 12.1966
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 332.4064,
+   "elDeg": 13.6513
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 321.4616,
+   "elDeg": 22.9863
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 322.058,
+   "elDeg": 14.3192
+  },
+  {
+   "site": "Chandrayaan-3",
+   "latDeg": -69.373,
+   "lonDeg": 32.319,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 334.3447,
+   "elDeg": 12.4273
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 102.591,
+   "elDeg": 80.7311
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 272.8755,
+   "elDeg": -68.8088
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 88.0523,
+   "elDeg": 59.5785
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 271.465,
+   "elDeg": -51.4426
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 92.4182,
+   "elDeg": 42.4412
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 269.219,
+   "elDeg": -30.3641
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 253.3004,
+   "elDeg": 64.1412
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 276.8092,
+   "elDeg": 61.0266
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 282.3233,
+   "elDeg": 71.577
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 253.9917,
+   "elDeg": 62.5742
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 272.8578,
+   "elDeg": 62.1643
+  },
+  {
+   "site": "Apollo 11",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 288.479,
+   "elDeg": 72.8222
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 92.5034,
+   "elDeg": 57.4554
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 270.5842,
+   "elDeg": -45.3619
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 88.0601,
+   "elDeg": 36.0966
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 270.437,
+   "elDeg": -27.983
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 91.4057,
+   "elDeg": 19.0017
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 268.978,
+   "elDeg": -6.8839
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 190.9888,
+   "elDeg": 83.2883
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 306.604,
+   "elDeg": 83.4702
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 50.7026,
+   "elDeg": 82.8644
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 203.2622,
+   "elDeg": 82.7102
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 294.5271,
+   "elDeg": 85.3366
+  },
+  {
+   "site": "Near-side centre",
+   "latDeg": 0,
+   "lonDeg": 0,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 49.9819,
+   "elDeg": 80.6103
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 268.4033,
+   "elDeg": 32.5088
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 89.4232,
+   "elDeg": -44.6361
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 272.6582,
+   "elDeg": 53.8575
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 89.1776,
+   "elDeg": -62.0148
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 265.9253,
+   "elDeg": 70.9475
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 98.4045,
+   "elDeg": -83.0417
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 263.4419,
+   "elDeg": -1.5461
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 273.8871,
+   "elDeg": -5.4672
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 274.5134,
+   "elDeg": 5.2428
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 263.3289,
+   "elDeg": -3.1298
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 271.931,
+   "elDeg": -4.4722
+  },
+  {
+   "site": "East limb",
+   "latDeg": 0,
+   "lonDeg": 90,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 276.0426,
+   "elDeg": 6.8936
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 267.4966,
+   "elDeg": -57.4561
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 89.4158,
+   "elDeg": 45.361
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 271.9399,
+   "elDeg": -36.0976
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 89.563,
+   "elDeg": 27.9818
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 268.5943,
+   "elDeg": -19.0029
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 91.022,
+   "elDeg": 6.8826
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 169.0112,
+   "elDeg": -83.3525
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 53.396,
+   "elDeg": -83.5276
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 309.2975,
+   "elDeg": -82.9264
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 156.7378,
+   "elDeg": -82.7787
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 65.4729,
+   "elDeg": -85.377
+  },
+  {
+   "site": "Far-side centre",
+   "latDeg": 0,
+   "lonDeg": 180,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 310.0181,
+   "elDeg": -80.6929
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 111.1327,
+   "elDeg": 18.0337
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 281.2841,
+   "elDeg": -10.5024
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 93.2205,
+   "elDeg": 5.4282
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 268.8464,
+   "elDeg": 1.6983
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 83.1212,
+   "elDeg": -8.6969
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "sun",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 252.4921,
+   "elDeg": 15.3685
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2026-01-01T00:00:00Z",
+   "azDeg": 145.5832,
+   "elDeg": 32.1318
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2026-03-15T00:00:00Z",
+   "azDeg": 144.8081,
+   "elDeg": 43.3117
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2026-05-27T00:00:00Z",
+   "azDeg": 131.8392,
+   "elDeg": 38.7974
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2026-08-08T00:00:00Z",
+   "azDeg": 147.3677,
+   "elDeg": 32.6639
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2026-10-20T00:00:00Z",
+   "azDeg": 144.6496,
+   "elDeg": 41.1241
+  },
+  {
+   "site": "North mid-latitude",
+   "latDeg": 45,
+   "lonDeg": -30,
+   "body": "earth",
+   "utc": "2027-01-01T00:00:00Z",
+   "azDeg": 128.9796,
+   "elDeg": 39.1572
+  },
+  {
+   "site": "Apollo 11 landing",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "sun",
+   "utc": "1969-07-20T20:17:40Z",
+   "azDeg": 88.805478904,
+   "elDeg": 10.703141363
+  },
+  {
+   "site": "Apollo 11 landing",
+   "latDeg": 0.67408,
+   "lonDeg": 23.47297,
+   "body": "earth",
+   "utc": "1969-07-20T20:17:40Z",
+   "azDeg": 272.195384908,
+   "elDeg": 59.224404709
+  }
+ ]
+}
