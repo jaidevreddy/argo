@@ -67,7 +67,13 @@ Terrain and horizons are baked offline into `public/data` by `python3 tools/bake
 
 ## Stack
 
-TypeScript · React · Vite · three.js with React Three Fiber · GSAP · Zustand · astronomy-engine · Python (NumPy, Pillow) · Vitest · Cloudflare Pages
+- **App:** TypeScript, React, Vite
+- **3D:** three.js with React Three Fiber
+- **Animation and state:** GSAP, Zustand
+- **Astronomy:** astronomy-engine
+- **Data baking:** Python with NumPy and Pillow
+- **Tests:** Vitest
+- **Hosting:** Cloudflare Pages
 
 ## Team
 
