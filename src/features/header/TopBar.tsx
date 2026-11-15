@@ -1,4 +1,4 @@
-import { ExternalLink, ShieldCheck } from 'lucide-react'
+import { Compass, ExternalLink, ShieldCheck } from 'lucide-react'
 import { useState } from 'react'
 import { fmtLat, fmtLon, useScenario, useTarget, type View } from '../../state/scenarioStore'
 import { Button } from '../../ui/Button'
@@ -54,7 +54,10 @@ export function TopBar() {
             },
           ]}
         />
-        <Button size="sm" onClick={() => setValidating(true)} aria-label="Validation">
+        <Button size="sm" onClick={() => window.dispatchEvent(new Event('argo:tour'))} aria-label="Tour" data-tour="tour-btn">
+          <Compass size={14} aria-hidden="true" /> <span className={s.vText}>Tour</span>
+        </Button>
+        <Button size="sm" onClick={() => setValidating(true)} aria-label="Validation" data-tour="validation">
           <ShieldCheck size={14} aria-hidden="true" /> <span className={s.vText}>Validation</span>
         </Button>
       </div>

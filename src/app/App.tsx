@@ -11,6 +11,7 @@ import { startUrlSync } from '../state/urlSync'
 import { useShortcuts } from './useShortcuts'
 import { useBoot } from './useBoot'
 import { AreaLoader, BootLoader } from '../ui/Loaders'
+import { Tour } from '../features/tour/Tour'
 import s from './App.module.css'
 
 // Views behind a tab load on first use; the globe, panels and dock ship in the first bundle.
@@ -73,7 +74,7 @@ export function App() {
           <SitePanel />
         </div>
         {view === 'sky' && (
-          <div className={s.center}>
+          <div className={s.center} data-tour="view-sky">
             <Suspense fallback={null}>
               <SkyChart />
             </Suspense>
@@ -87,7 +88,7 @@ export function App() {
           </div>
         )}
         {view === 'compare' && (
-          <div className={s.center}>
+          <div className={s.center} data-tour="view-compare">
             <Suspense fallback={null}>
               <CompareView />
             </Suspense>
@@ -100,6 +101,7 @@ export function App() {
           <TimeDock />
         </div>
       </div>
+      <Tour ready={boot.done && sitesReady} />
       {!boot.done && <BootLoader ready={boot.ready} label={boot.label} progress={boot.progress} onDone={boot.onDone} />}
     </div>
   )

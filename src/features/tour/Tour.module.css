@@ -1,0 +1,184 @@
+/* First-run tour: a dimmed scene with one element lit, and a small glass card beside it. */
+.layer,
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90; /* over the panels and date picker, under the boot loader */
+}
+
+.scrim {
+  display: grid;
+  place-items: center;
+  padding: var(--s-4);
+  background: rgb(0 0 0 / 0.5);
+  animation: fade var(--t-med) var(--ease-out);
+}
+
+.catch {
+  position: absolute;
+  inset: 0;
+}
+
+.dim {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.35);
+  pointer-events: none;
+  animation: fade var(--t-med) var(--ease-out);
+}
+
+.spot {
+  position: fixed;
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 0 0 1.5px rgb(255 255 255 / 0.75),
+    0 0 0 6px rgb(255 255 255 / 0.08),
+    0 0 0 200vmax rgb(0 0 0 / 0.55);
+  pointer-events: none;
+  transition:
+    left 420ms var(--ease-out),
+    top 420ms var(--ease-out),
+    width 420ms var(--ease-out),
+    height 420ms var(--ease-out);
+}
+
+.card {
+  position: fixed;
+  width: 340px;
+  padding: var(--s-4) var(--s-5) var(--s-4);
+  background: rgb(20 20 23 / 0.86);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-panel);
+  color: var(--text-1);
+  outline: none;
+  transition:
+    left 420ms var(--ease-out),
+    top 420ms var(--ease-out);
+  animation: rise var(--t-med) var(--ease-out);
+}
+
+.ask {
+  position: relative;
+  width: min(400px, 100%);
+  padding: var(--s-5);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-2);
+}
+
+.count {
+  font-size: var(--fs-12);
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+
+.sub {
+  color: var(--text-3);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-right: -6px;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--surface-2);
+  color: var(--text-1);
+}
+
+.title {
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-17);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.body {
+  margin: 0;
+  font-size: var(--fs-13);
+  line-height: 1.5;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: var(--s-3);
+}
+
+.dot,
+.dotOn,
+.dotPast {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.18);
+  transition:
+    width var(--t-med) var(--ease-out),
+    background var(--t-med);
+}
+
+.dotPast {
+  background: rgb(255 255 255 / 0.45);
+}
+
+.dotOn {
+  width: 16px;
+  background: var(--text-1);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Phones: the card is a sheet along the bottom; the lit element is scrolled into view above it. */
+@media (max-width: 719px) {
+  .layer .card {
+    left: var(--s-3) !important;
+    right: var(--s-3);
+    bottom: calc(var(--s-3) + env(safe-area-inset-bottom));
+    top: auto !important;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spot,
+  .card {
+    transition: none;
+    animation: none;
+  }
+}

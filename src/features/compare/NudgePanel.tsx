@@ -31,7 +31,7 @@ export function NudgePanel() {
 
   if (!site || !target) {
     return (
-      <section className={s.nudge}>
+      <section className={s.nudge} data-tour="nudge">
         <h3 className={s.nudgeTitle}>Nudge</h3>
         <p className={s.nudgeNote}>Nudge works on the listed sites, where terrain around the spot is baked. Custom points get the ideal sphere.</p>
       </section>
@@ -64,7 +64,7 @@ export function NudgePanel() {
   const points = [{ key: 'base', e: 0, n: 0, label: 'Listed spot' }, ...site.nudgePoints!.map((p, i) => ({ key: `p${i}`, e: p[0], n: p[1], label: nudgeLabel(i) }))]
 
   return (
-    <section className={s.nudge} aria-label="Nudge">
+    <section className={s.nudge} aria-label="Nudge" data-tour="nudge">
       <div className={s.nudgeHead}>
         <h3 className={s.nudgeTitle}>Nudge</h3>
         <p className={s.nudgeNote}>

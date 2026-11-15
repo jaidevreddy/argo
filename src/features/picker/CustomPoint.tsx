@@ -38,7 +38,7 @@ export function CustomPoint({ lat0 = '', lon0 = '' }: { lat0?: string; lon0?: st
   }
 
   return (
-    <form className={s.custom} onSubmit={submit} noValidate>
+    <form className={s.custom} onSubmit={submit} noValidate data-tour="custom">
       <h3 className={s.groupTitle}>Custom point</h3>
       <div className={s.customRow}>
         <Field label="Latitude °" inputMode="decimal" placeholder="−89.45" value={lat} onChange={edit(setLat)} error={tried ? pLat.error : undefined} />

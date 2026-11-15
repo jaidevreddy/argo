@@ -48,6 +48,15 @@ Mac path: /Users/jaidevreddy/Documents/Documents - Jaidev’s MacBook Pro/projec
   (swiftshader). The mirror needs public/data/textures copied from the Mac or the boot never finishes.
 - Mac folder name uses a curly apostrophe (Jaidev’s); device paths with a straight one are rejected.
 
+## First-run tour (Phase 8)
+
+- `src/features/tour/`: on first visit (localStorage `argo-tour-v1`) a dialog asks "Want a quick tour?".
+  8 features, 11 cards; Continue = next card, Skip = next feature, Esc or × ends it. Tour button in the top bar replays it.
+- Cards spotlight `[data-tour=...]` elements, switch views (sky, 3D only when terrain exists, compare) and restore
+  the view and compare list at the end. Phones: bottom sheet; target scrolled below the pinned header.
+- Copy follows blader/humanizer: plain statements, specific numbers, no hype or dash connectors.
+- `?notour` in the URL suppresses the prompt (film capture, shared demo links).
+
 ## Next step
 
 Phase 8: deploy, 30 s demo video, Space Apps project page (summary, how it works, data sources, references incl.

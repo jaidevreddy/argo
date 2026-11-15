@@ -28,7 +28,7 @@ export function SitePanel() {
   }, [sites, query])
 
   return (
-    <Panel className={s.panel} role="region" aria-label="Landing sites">
+    <Panel className={s.panel} role="region" aria-label="Landing sites" data-tour="sites">
       <div className={s.head}>
         <h2 className={s.title}>Landing sites</h2>
         <Field

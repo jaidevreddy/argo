@@ -43,7 +43,7 @@ export function TimeDock() {
   const landingLabel = target?.site?.status === 'landed' ? 'Landing time' : 'Planning date'
 
   return (
-    <Panel className={s.dock} role="group" aria-label="Date, time and timeline">
+    <Panel className={s.dock} role="group" aria-label="Date, time and timeline" data-tour="time">
       <div className={s.bar}>
         <Button variant="quiet" size="sm" onClick={() => setPlaying((p) => !p)} aria-label={playing ? 'Pause' : 'Play'} aria-pressed={playing}>
           {playing ? <Pause size={15} /> : <Play size={15} />}

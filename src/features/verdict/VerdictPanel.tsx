@@ -61,7 +61,7 @@ export function VerdictPanel() {
         <h2 className={s.title}>At this moment</h2>
         {now && <span className={`${s.badge} ${verdict.tone}`} aria-live="polite">{verdict.icon}{verdict.text}</span>}
       </div>
-      <section className={`${s.section} ${s.nowSection}`} aria-live="polite">
+      <section className={`${s.section} ${s.nowSection}`} aria-live="polite" data-tour="moment">
         {!now ? (
           <p className={s.note}>Loading horizon…</p>
         ) : (
@@ -101,7 +101,7 @@ export function VerdictPanel() {
         )}
       </section>
 
-      <section className={`${s.section} ${s.controls}`}>
+      <section className={`${s.section} ${s.controls}`} data-tour="panel-opts">
         <Segmented label="Panel type" size="sm" value={panel} onChange={(v) => patch({ panel: v })} options={[{ value: 'tracking', label: 'Tracking' }, { value: 'flat', label: 'Flat' }]} />
         <Segmented
           label="Earth elevation mask"
