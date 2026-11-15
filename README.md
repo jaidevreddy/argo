@@ -80,6 +80,12 @@ Terrain and horizons are baked offline into `public/data` by `python3 tools/bake
 - **K Jaidev Shankar Reddy**
 - **Advik R Holalu**
 
+## Credits
+
+- **Wordmark font:** Cyberwave 2000 by HipFonts.
+- **Demo video:** music "Got It" by Pryces, voiceover AI-generated with ElevenLabs.
+- **AI tools:** Claude (Anthropic) helped write code and text.
+
 <br>
 
 <p align="center">
