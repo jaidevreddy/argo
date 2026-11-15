@@ -10,6 +10,7 @@ Will the panel get sunlight, and will Earth be in view? For any site on the Moon
 
 <p align="center">
   <a href="https://argo-4eg.pages.dev"><b>Open the app</b></a> ·
+  <a href="https://drive.google.com/file/d/1UBb8laYB5ZrqTQVDsRBuV6blmLT2zfZ4/view?usp=sharing"><b>Watch the 30 s demo</b></a> ·
   NASA Space Apps Challenge 2026
 </p>
 
