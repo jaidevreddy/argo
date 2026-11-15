@@ -86,6 +86,10 @@ Terrain and horizons are baked offline into `public/data` by `python3 tools/bake
 - **Demo video:** music "Got It" by Pryces, voiceover AI-generated with ElevenLabs.
 - **AI tools:** Claude (Anthropic) helped write code and text.
 
+## License
+
+The code is open source under the [MIT License](LICENSE). NASA data and images are public domain. The wordmark font and the demo music keep their own licences.
+
 <br>
 
 <p align="center">
