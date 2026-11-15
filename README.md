@@ -10,12 +10,11 @@ Will the panel get sunlight, and will Earth be in view? For any site on the Moon
 
 <p align="center">
   <a href="https://argo-4eg.pages.dev"><b>Open the app</b></a> ·
-  <a href="docs/media/argo-demo.mp4">Watch the 30 s demo</a> ·
   NASA Space Apps Challenge 2026
 </p>
 
 <p align="center">
-  <a href="docs/media/argo-demo.mp4"><img src="docs/media/argo-demo-poster.jpg" alt="Argo demo video" width="820"></a>
+  <a href="https://argo-4eg.pages.dev"><img src="docs/media/argo-screenshot.jpg" alt="Argo: Chandrayaan-3 landing site with Sun, Earth and power for the selected time" width="900"></a>
 </p>
 
 ## What it does
@@ -83,9 +82,7 @@ Terrain and horizons are baked offline into `public/data` by `python3 tools/bake
 ## Credits
 
 - **Wordmark font:** Cyberwave 2000 by HipFonts.
-- **Demo music:** "Got It" by Pryces.
-- **Demo voiceover:** AI-generated with ElevenLabs.
-- **Demo images:** NASA (Apollo 12 AS12-47-6891, Artemis II art002e021278, SDO).
+- **Demo video:** music "Got It" by Pryces, voiceover AI-generated with ElevenLabs.
 - **AI tools:** Claude (Anthropic) helped write code and text. The idea, design decisions and validation are ours.
 
 <br>
